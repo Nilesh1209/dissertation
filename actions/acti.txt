@@ -1,0 +1,190 @@
+class ActionRecommendation(Action):
+    def name(self) -> Text:
+        return "action_recommend"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        
+        # Load the domain file
+        with io.open("C:\\Users\\Niles\\Desktop\\rasa env\\domain.yml", 'r', encoding='utf-8') as f:
+            domain_data = yaml.safe_load(f)
+
+        # Get the defined utterances in the domain file
+        defined_utterances = [template['text'] for template in domain_data.get('templates', [])]
+
+
+        software_type = tracker.get_slot("software_type")
+        functionality = tracker.get_slot("functionality")
+        other_info = tracker.get_slot("other_info")
+
+        if software_type is None:
+            dispatcher.utter_message("Which type of software are you looking for? If you are not sure Type default Else Give Your Answer like this 'type pdf', 'type epub' ")
+            software_type = next(tracker.get_latest_entity_values("software_type"), None)
+            return [SlotSet("software_type", software_type)]
+
+        if functionality is None:
+            dispatcher.utter_message("Which functionality are you searching for? If not sure Type nothing special Else Give Your Answer like this 'to read', 'to view' ")
+            functionality = next(tracker.get_latest_entity_values("functionality"), None)
+            return [SlotSet("functionality", functionality)]
+
+        if other_info is None:
+            dispatcher.utter_message("Do you want to add more information? If yes type your answer else type no thanks")
+            other_info = next(tracker.get_latest_entity_values("other_info"), None)
+            return [SlotSet("other_info", other_info)]
+
+
+        if functionality.lower()!="nothing special":
+
+            if software_type.lower()!="default":
+
+                if other_info.lower()!="no thanks":
+
+                    message_template = f"utter_recommend/{functionality.lower()}/{software_type.lower()}/{other_info.lower()}"
+                    message = {
+                        "functionality": functionality.lower(),
+                        "software_type": software_type.lower(),
+                        "other_info":other_info.lower()
+                    } 
+                   
+                    # if message_template not in defined_utterances:
+                    #     message_template = f"utter_recommend/{functionality.lower()}/{software_type.lower()}"
+                    #     message = {
+                    #             "functionality": functionality.lower(),
+                    #             "software_type": software_type.lower()
+                    #         }
+                        
+                    #     if message_template not in defined_utterances:
+                    #         message_template = f"utter_recommend/{software_type.lower()}/{other_info.lower()}"
+                    #         message = {
+                    #             "software_type": software_type.lower(),
+                    #             "other_info":other_info.lower()
+                    #         }  
+                    #     if message_template not in defined_utterances:
+                    #         message_template = f"utter_recommend/{functionality.lower()}/{other_info.lower()}"
+                    #         message = {
+                    #             "functionality": functionality.lower(),
+                    #             "other_info":other_info.lower()
+                    #         }
+                    #     if message_template not in defined_utterances:
+                    #         message_template = f"utter_recommend/{software_type.lower()}"
+                    #         message = {
+                    #             "software_type": software_type.lower()
+                    #         } 
+
+                    #     if message_template not in defined_utterances:
+                    #         message_template = f"utter_recommend/{functionality.lower()}"
+                    #         message = {
+                    #             "functionality": functionality.lower()
+                    #         } 
+                    # # else:
+                   
+                    # #     message_template = f"utter_recommend/{functionality.lower()}/{software_type.lower()}/{other_info.lower()}"
+                    # #     message = {
+                    # #         "functionality": functionality.lower(),
+                    # #         "software_type": software_type.lower(),
+                    # #         "other_info":other_info.lower()
+                    # #     } 
+                else:
+                   
+                   message_template = f"utter_recommend/{functionality.lower()}/{software_type.lower()}"
+                   message = {
+                            "functionality": functionality.lower(),
+                            "software_type": software_type.lower()
+                        }
+                   
+                #    if message_template not in defined_utterances:   
+                #         message_template = f"utter_recommend/{functionality.lower()}"
+                #         message = {
+                #             "functionality": functionality.lower()
+                #         } 
+                   
+                   if message_template not in defined_utterances:
+                        
+                        message_template = f"utter_recommend/{software_type.lower()}"
+                        message = {
+                            "software_type": software_type.lower()
+                        } 
+
+
+                # #    else:
+                # #         message_template = f"utter_recommend/{functionality.lower()}/{software_type.lower()}"
+                # #         message = {
+                # #             "functionality": functionality.lower(),
+                # #             "software_type": software_type.lower()
+                # #         }
+            else:
+
+                if other_info.lower()!="no thanks":
+                   
+                   message_template = f"utter_recommend/{functionality.lower()}/{other_info.lower()}"
+                   message = {
+                            "functionality": functionality.lower(),
+                            "other_info":other_info.lower()
+                        }
+                   
+                #    if message_template not in defined_utterances:
+                #             message_template = f"utter_recommend/{functionality.lower()}"
+                #             message = {
+                #                 "functionality": functionality.lower()
+                #             }
+                #    else:
+                #         message_template = f"utter_recommend/{functionality.lower()}/{other_info.lower()}"
+                #         message = {
+                #             "functionality": functionality.lower(),
+                #             "other_info":other_info.lower()
+                #         }
+                else:
+
+                   message_template = f"utter_recommend/{functionality.lower()}"
+                   message = {
+                     "functionality": functionality.lower()
+                   } 
+        else:
+
+            if software_type.lower()!="nothing":
+
+                if other_info.lower()!="no thanks":
+
+                    message_template = f"utter_recommend/{software_type.lower()}/{other_info.lower()}"
+                    message = {
+                            "software_type": software_type.lower(),
+                            "other_info":other_info.lower()
+                        } 
+
+                    # if message_template not in defined_utterances:
+                    #     message_template = f"utter_recommend/{software_type.lower()}"
+                    #     message = {
+                    #         "software_type": software_type.lower()
+                    #     } 
+                    # # else:
+                    # #     message_template = f"utter_recommend/{software_type.lower()}/{other_info.lower()}"
+                    # #     message = {
+                    # #         "software_type": software_type.lower(),
+                    # #         "other_info":other_info.lower()
+                    # #     }       
+                else:
+
+                    message_template = f"utter_recommend/{software_type.lower()}"
+                    message = {
+                        "software_type": software_type.lower()
+                    }  
+            else:
+
+                if other_info.lower()=="no thanks":
+                   dispatcher.utter_message("You must provide me with some information for me to understand your needs")
+
+        if message_template is not None and message is not None:
+            dispatcher.utter_template(message_template, tracker, **message)
+            #return [SlotSet(slot, None) for slot in tracker.slots.keys()]
+
+
+        self.ask_for_feedback(dispatcher, tracker)
+
+        return [SlotSet(slot, None) for slot in tracker.slots.keys()]
+
+    def ask_for_feedback(self, dispatcher: CollectingDispatcher, tracker: Tracker):
+        dispatcher.utter_template("utter_ask_solution_helpful", tracker)

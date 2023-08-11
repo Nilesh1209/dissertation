@@ -1,0 +1,99 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+  - action: action_end_conversation
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+
+# - rule: feedback
+#   steps:
+#   - intent: happy_feedback
+#   - action: action_check_solution_helpful
+
+- rule: feedback
+  steps:
+  - intent: deny
+  - action: action_check_solution_helpful
+
+- rule: feedback
+  steps:
+  - intent: happy_feedback
+  - action: action_check_solution_helpful
+
+
+# - rule: happy feedback
+#   steps:
+#   - intent: happy_feedback
+#   - action: action_check_solution_helpful
+
+# - rule: feeback for happy customer
+#   steps:
+#   - intent: happy_feedback
+#   - action: action_check_solution_helpful
+
+- rule: technician
+  steps:
+  - intent: ask for user information
+  - action: action_collect_user_info
+
+- rule: technician_assistance
+  steps:
+  - intent: ask_technician
+  - action: action_collect_user_info
+
+- rule: No_assistance
+  steps:
+  - intent: decline_technician
+  - action: utter_decline_technician
+
+- rule: decline_feedback
+  steps:
+  - intent: decline_feedback
+  - action: utter_decline_feedback
+  - action: utter_bye
+
+- rule: no_feedback
+  steps:
+  - intent: no_feedback
+  - action: utter_thank_use
+  - action: utter_bye
+
+- rule: reset
+  steps:
+  - intent: reset_coversation
+  - action: action_end_conversation
+
+- rule: ask_conversation
+  steps:
+  - intent: ask_continueconversation
+  - action: action_check_solution_helpful
+  
+
+- rule: ask_conversation2
+  steps:
+  - intent: ask_continueconversation2
+  - action: action_collect_user_info
+
+# - rule: Execute Action Upgrade
+#   steps:
+#     - intent: upgrade
+#     - action: action_upgrade
+#   condition:
+#     - active_loop: null
+#     - slot_was_set:
+#         - upgrade_to: regular_version
+
+# - rule: sad feedback
+#   steps:
+#   - intent: sad_feedback
+#   - action: action_check_solution_helpful
+

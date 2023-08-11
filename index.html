@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+
+
+        #chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        /* Add CSS for the chat container */
+        #chat-container {
+            display: none;
+        }
+
+        #chat-container.show {
+            display: block;
+        }
+
+        /* Rest of your CSS styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 220px; /* Adjust the width as needed */
+            background-color: #f8f8f8;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+            z-index: 2;
+
+        }
+
+        .chat-messages {
+            flex: 1;
+            max-height: calc(100vh - 200px); /* Decreased the height to resemble chat GPT */
+            overflow-y: auto;
+            margin-left: 20px;
+            margin-right: 20px; /* Added margin to match the chat container width */
+            position: relative;
+            margin: 0;
+        }
+
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-right: 10px;
+        }
+
+        .intent-option {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            margin-right: 10px;
+            margin-bottom: 10px; /* Added margin-bottom to create more space */
+            cursor: pointer;
+        }
+
+
+        .intent-option {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            line-height: 1.4;
+            max-width: 90%;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .chat-message.bot {
+            background-color: #d6eef8;
+            color: #212121;
+            align-self: flex-start;
+            margin-left: 0;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .chat-message.user {
+            background-color: #e5e5ea;
+            color: #212121;
+            align-self: flex-end;
+            margin-right: 0;
+            margin-left: auto;
+            max-width: 80%;
+        }
+
+        .chat-message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+
+        #chat-form {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 320px;
+            right: 340px; /* Adjusted the right position to match the width of the sidebar and create the same length as the chat container */
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            color: #212121;
+            outline: none;
+            max-width: 70%; /* Decreased the width of the input container */
+        }
+
+
+        #chat-form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+            min-width: 80px; /* Decreased the width of the send button */
+        }
+
+        /* .copy-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        } */
+
+        .options-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .options-toggle button {
+            padding: 5px 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .options-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .options-container button {
+            margin-bottom: 5px;
+        }
+
+
+        /* .hide-sidebar-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+        } */
+
+        .open-sidebar-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+            min-width: 80px;
+            margin-top: 20px; /* Add margin-top to position below the header */
+        }
+
+
+        .sidebar-hidden .hide-sidebar-button {
+        display: none;
+        }
+
+        .sidebar-hidden .open-sidebar-button {
+            display: block;
+        }
+
+
+        .sidebar-transition {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .sidebar-hidden .sidebar {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .sidebar-hidden .open-sidebar-button {
+            display: block;
+        }
+
+        .container {
+        position: relative;
+        }
+
+        .chat-header {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #screenshot-button {
+            position: absolute;
+            top: 10px;
+            right: 200px; /* Adjusted the right position to move the screenshot button */
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .copy-button,
+        .hide-sidebar-button {
+            padding: 10px 20px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+        
+
+        .typing-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #212121;
+            animation: typing-indicator-animation 1s infinite;
+            margin-right: 5px;
+        }
+
+        @keyframes typing-indicator-animation {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        .quick-reply-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        /* #send-button {
+            visibility: visible;
+        } */
+
+
+    </style>
+    
+</head>
+<body>
+    
+    <img id="chat-button" src="bot.png" alt="Chatbot" onclick="toggleChat()" />
+
+
+    <div id="chat-container" class="container">
+
+        <div class="sidebar" id="sidebar">
+            <h2>Options</h2>
+            <button type="button" class="intent-option" data-message="Software Recommendation">Software Recommendation</button>
+            <button type="button" class="intent-option" data-message="Shutdown Your PC">Shutdown PC</button>
+            <button type="button" class="intent-option" data-message="upgrade">Software Update</button>
+            <button type="button" class="intent-option" data-message="Setup Printer">Setup Printer</button>
+            <div class="sidebar-bottom">
+                <button class="copy-button" onclick="saveConversation()">Save Conversation</button>
+                <button class="hide-sidebar-button" onclick="hideSidebar()">Hide</button>
+            </div>
+        </div>
+        <div class="chat-header">Ask Ubuntu</div>
+        <button class="open-sidebar-button" onclick="openSidebar()">Options</button>
+
+
+        <div class="chat-container">
+            <div class="chat-messages">
+                <div class="chat-message bot">
+                    <img class="chat-message-avatar" src="bot.png" alt="Bot Avatar" />
+                    <div>Bot: Hi, I am your chatbot. How can I assist you?</div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-form">
+            <input type="text" id="user-input" placeholder="Write a message..." autocomplete="off" />
+            <button id="send-button" type="submit">Send</button>
+            <button id="reset-button" onclick="resetChat()">Reset</button>
+        </div>
+
+        <button class="close-button" onclick="toggleChat()">
+            <span>&times;</span>
+        </button>
+
+    </div>
+
+    <script>
+
+        const chatContainer = document.querySelector('.chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const intentOptions = document.querySelectorAll('.intent-option');
+        let waitingForAnswer = false;
+        let soft = false;
+        let osversion = false;
+        let upgradeto = false;
+        let ubuntu = false;
+        let upgradeto2 = false;
+        let ubuntu2 = false;
+        let func = false;
+        let method = false;
+        let printer = false;
+        let details_shutdown = false;
+        let details_recommend = false;
+        let details_upgrade = false;
+        let details_printer = false;
+        let rephrase = false;
+
+        function toggleSendButton(disabled) {
+            sendButton.disabled = disabled;
+        }
+        
+
+        function appendMessage(message, sender, avatar) {
+            const defaultBotAvatar = 'bot.png';
+            const defaultUserAvatar = 'user.png';
+            const botAvatar = avatar || defaultBotAvatar;
+            const userAvatar = avatar || defaultUserAvatar;
+
+            const chatMessage = document.createElement('div');
+            chatMessage.classList.add('chat-message');
+            chatMessage.classList.add(sender);
+            if (sender === 'bot') {
+                msg = message;
+                if (message.length != 0) {
+                    chatMessage.innerHTML = `
+                        <img class="chat-message-avatar" src="${botAvatar}" alt="${sender} Avatar" />
+                        <div>${message}</div>
+                    `;
+                }
+
+                if (message === "Bye") {
+                    chatMessage.innerHTML += "...";
+                    waitingForAnswer = false;
+                    soft = false;
+                    osversion = false;
+                    upgradeto = false;
+                    ubuntu = false;
+                    upgradeto2 = false;
+                    ubuntu2 = false;
+                    func = false;
+                    method = false;
+                    printer = false;
+                    details_shutdown = false;
+                    details_recommend = false;
+                    details_upgrade = false;
+                    details_printer = false;
+                    rephrase = false;
+                    
+
+                } 
+
+
+                // Add a class "send-message" to the "No" button in the "Do you want to add more informations?" message
+                // if (message === "Do you want to add more informations? ..") {
+                
+                //     chatMessage.innerHTML +=
+                        
+                //         `<button class="quick-reply-button send-message" data-message="nope">No</button>` +
+                //         "..Else Type your answer .." +
+                //         `<button class="quick-reply-button" onclick="handleQuickReply()">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+                if (message === "Do you want to add more informations? .."){
+
+                    if (details_printer === false){
+
+                        chatMessage.innerHTML +=
+                        
+                            `<button class="quick-reply-button send-message" data-message="nope">No</button>` +
+                            "..Else Type your answer .." +
+                            `<button class="quick-reply-button" onclick="handleQuickReply('os_version ')">Send</button>
+                       `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_printer = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I will try to provide you an answer with the information that i understood.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_printer = false;
+                        sendMessageToRasa('nope');
+                    }
+                }
+
+
+                if (message === "On which version of ubuntu you wish to install the printer? Type your current version ..") {
+                    chatMessage.innerHTML += `
+                          <button class="quick-reply-button" onclick="handleQuickReply('os_version ','standard_version')" data-message="standard_version">Send</button>
+                    `;
+
+                        const hasButtons = true; // Since there is a button in this specific message
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                }
+
+                if (message === "Which version of printer are you using? Type your version .."){
+
+                    if(printer === false){
+
+                        chatMessage.innerHTML += `
+                            <button class="quick-reply-button" onclick="handleQuickReply('os_version ','no_printer')" data-message="no_printer">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        printer = true;
+                    }else{
+
+                         message = "You must provide me with your printer's version which you want to setup .." + ` <button class="quick-reply-button" onclick="handleQuickReply('printer ','no_printer')" data-message="no_printer">Send</button>
+                         `;
+                        // chatMessage.innerHTML = "You must provide me with your printer's version which you want to setup .." + `
+                        //     <button class="quick-reply-button" onclick="handleQuickReply('printer ','no_printer')" data-message="no_printer">Send</button>
+                        // `;
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        printer = false;
+                    }
+                }
+
+
+                // if (message === "Which version of printer are you using? Type your version ..") {
+                //     chatMessage.innerHTML += `
+                //            <button class="quick-reply-button" onclick="handleQuickReply('printer ','no_printer')" data-message="no_printer">Send</button>
+                //     `;
+
+
+                //         const hasButtons = true; // Since there is a button in this specific message
+                //         const sendButton = document.getElementById('send-button');
+                //         sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+
+                if (message === "Which version do you want to upgrade to? Type your version .."){
+
+                    if(upgradeto === false){
+
+                        chatMessage.innerHTML += `
+                            <br><button class="quick-reply-button" onclick="handleQuickReply('upgrade_to ','regular_version')" data-message="regular_version">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        upgradeto = true;
+                    }else{
+
+                        chatMessage.innerHTML = "";
+                        message = "I assume that you dont have a specific version you want to upgrade to. If you mistyped please click on Reset to restart the conversation";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        upgradeto = false;
+                        sendMessageToRasa('regular_version');
+                    }
+                }
+
+                if (message === "Which version of Ubuntu do you want to upgrade? Type your current version .."){
+
+                    if (ubuntu === false){
+
+                        chatMessage.innerHTML += `
+                            <br><button class="quick-reply-button" onclick="handleQuickReply('ubuntu_version ','anything')" data-message="anything">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        ubuntu = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I assume you dont want to specify your current version but make sure you have provided me the version you want to upgarde to. If not click on Reset to restart the conversation.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        ubuntu = false;
+                        sendMessageToRasa('anything');
+                    }
+                }
+
+
+
+                if (message === "Please enter the correct version that you want to upgrade to .."){
+
+                    if(upgradeto2 === false){
+
+                        chatMessage.innerHTML += `
+                            <br><button class="quick-reply-button" onclick="handleQuickReply('upgrade_to ','regular_version')" data-message="regular_version">Send</button>
+                            <button class="quick-reply-button send-message" data-message="regular_version">No Specific Version</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        upgradeto2 = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        upgradeto2 = false;
+                        sendMessageToRasa('regular_version');
+                    }
+                }
+
+
+                if (message === "Please enter the correct version that you are using .."){
+
+                    if (ubuntu2 === false){
+
+                        chatMessage.innerHTML += `
+                            <br><button class="quick-reply-button" onclick="handleQuickReply('ubuntu_version ','anything')" data-message="regular_version">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        ubuntu2 = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        ubuntu2 = false;
+                        sendMessageToRasa('anything');
+                    }
+                }
+
+
+
+
+                // if (message === "Which version do you want to upgrade to? Type your version ..") {
+                //     chatMessage.innerHTML += `
+                //             <br><button class="quick-reply-button" onclick="handleQuickReply('upgrade_to ','regular_version')" data-message="regular_version">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+                // if (message === "Please enter the correct version that you want to upgrade to ..") {
+                //     chatMessage.innerHTML += `
+                //             <br><button class="quick-reply-button" onclick="handleQuickReply('upgrade_to ','regular_version')" data-message="regular_version">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+                // if (message === "Which version of Ubuntu do you want to upgrade? Type your current version ..") {
+                //     chatMessage.innerHTML += `
+                //             <br><button class="quick-reply-button" onclick="handleQuickReply('ubuntu_version ','anything')" data-message="anything">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+                // if (message === "Please enter the correct version that you are using ..") {
+                //     chatMessage.innerHTML += `
+                //             <br><button class="quick-reply-button" onclick="handleQuickReply('ubuntu_version ','anything')" data-message="anything">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+                // <button class="quick-reply-button send-message" data-message="anything">Default</button>
+
+                // if (message === "Do you want to add any other details? ..") {
+                //     chatMessage.innerHTML +=
+                
+                //      `<button class="quick-reply-button send-message" data-message="nothing">NO</button>` +
+                //     "..Else Type your answer .." +
+                //     `<button class="quick-reply-button" onclick="handleQuickReply('other_details')">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+                if (message === "Do you want to add any other details? .."){
+
+                    if (details_upgrade === false){
+
+                        chatMessage.innerHTML +=
+                
+                            `<button class="quick-reply-button send-message" data-message="nothing">NO</button>` +
+                            "..Else Type your answer .." +
+                            `<button class="quick-reply-button" onclick="handleQuickReply('Ubuntu_version ')">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_upgrade = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I will try to provide you an answer with the information that i understood.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_upgrade = false;
+                        sendMessageToRasa('nothing');
+                    }
+                }
+
+
+                if (message === "Do You Want to ask something else ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="says_yes">YES</button>
+                            <button class="quick-reply-button send-message" data-message="says_no">NO</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                }
+
+
+                if (message === "Do You Want to continue the conversation ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="i_accept">YES</button>
+                            <button class="quick-reply-button send-message" data-message="i_reject">NO</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                }
+
+
+
+
+                if (message === "Which type of software are you looking for? Type your software type .."){
+
+                    if(soft === false){
+
+                        chatMessage.innerHTML += `
+                        <br><button class="quick-reply-button" onclick="handleQuickReply('type ','default')" data-message="default">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        soft = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I assume you are not searching for a specific kind of software.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        soft = false;
+                        sendMessageToRasa('default');
+                    }
+                }
+
+                if (message === "Which functionality are you searching for? Type your answer .."){
+
+                    if (func === false){
+
+                        chatMessage.innerHTML += `
+                            <br><button class="quick-reply-button" onclick="handleQuickReply('type ','not sure')" data-message="not sure">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        func = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I assume that you are not searching for a specific functionality.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        func = false;
+                        sendMessageToRasa('not sure');
+                    }
+                }
+
+                if (message === "Do you want to add more information? .."){
+
+                    if (details_recommend === false){
+
+                        chatMessage.innerHTML +=
+            
+                            `<button class="quick-reply-button send-message" data-message="no thanks">NO</button>` +
+                            "..Else Type your answer .." +
+                            `<button class="quick-reply-button" onclick="handleQuickReply('type ')">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_recommend = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I will try to provide you an answer with the information that i understood.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_recommend = false;
+                        sendMessageToRasa('no thanks');
+                    }
+                }
+
+
+                // if (message === "Do you want to add more information? ..") {
+
+                //     chatMessage.innerHTML +=
+            
+                //         `<button class="quick-reply-button send-message" data-message="no thanks">NO</button>` +
+                //         "..Else Type your answer .." +
+                //         `<button class="quick-reply-button" onclick="handleQuickReply('type ')">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+                
+
+                // if (message === "How do you want to shutdown your pc? Type your preferred method ..") {
+                //         chatMessage.innerHTML += `
+                //                 <br><button class="quick-reply-button" onclick="handleQuickReply('method ','any_way')" data-message="any_way">Send</button>
+                //         `;
+
+                //         const hasButtons = true; // Since there is a button in this specific message
+                //         const sendButton = document.getElementById('send-button');
+                //         sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+
+                if (message === "How do you want to shutdown your pc? Type your preferred method .."){
+
+                    if (method === false){
+
+                        chatMessage.innerHTML += `
+                            <br><button class="quick-reply-button" onclick="handleQuickReply('method ','any_way')" data-message="any_way">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        method = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I assume that you don't have a specific way in mind. I will just put it as default";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        method = false;
+                        sendMessageToRasa('any_way');
+                    }
+                }
+
+
+                // if (message === "Do you want to add more details? ..") {
+
+                //     chatMessage.innerHTML +=
+                    
+                //      `<button class="quick-reply-button send-message" data-message="reject">NO</button>` +
+                //     "..Else Type your answer .." +
+                //     `<button class="quick-reply-button" onclick="handleQuickReply('method ')">Send</button>
+                //     `;
+
+                //     const hasButtons = true; // Since there is a button in this specific message
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = hasButtons ? 'none' : 'block';
+                // }
+
+
+                if (message === "Do you want to add more details? .."){
+
+                    if (details_shutdown === false){
+
+                        chatMessage.innerHTML +=
+                    
+                            `<button class="quick-reply-button send-message" data-message="reject">NO</button>` +
+                            "..Else Type your answer .." +
+                            `<button class="quick-reply-button" onclick="handleQuickReply('method ')">Send</button>
+                        `;
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_shutdown = true;
+                    }else{
+
+                        chatMessage.innerHTML += ``;
+                        message = "I will try to provide you an answer with the information that i understood.";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        details_shutdown = false;
+                        sendMessageToRasa('reject');
+                    }
+                }
+
+                if (message === "Do You Want to give a feedback? ..") {
+
+                    chatMessage.innerHTML +=
+
+                     `<button class="quick-reply-button send-message" data-message="no_feedback">NO</button>` +
+                    "..Type your feedback .." +
+                    `<button class="quick-reply-button" onclick="handleQuickReply('improvement ')">Send</button>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                }
+
+                if (message === "I'm sorry, I did not understand you. Could you please rephrase or ask a different question?"){
+
+                    if (rephrase === false){
+
+
+                        rephrase = true;
+                    }else{
+
+                        message = "I'm sorry, we can't process your question right now. Do you want assistance from a technician?";
+                        chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="sure">YES</button>
+                            <button class="quick-reply-button send-message" data-message="decline">NO</button>
+                        </div>
+                    `;
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                        rephrase = false;
+                    }
+                }
+
+                // <button class="quick-reply-button send-message" data-message="dont_want">NO</button>
+
+                if (message === "Can you please give us feedback? ..") {
+
+                    chatMessage.innerHTML +=
+
+                     `<button class="quick-reply-button send-message" data-message="dont_want">NO</button>` +
+                    "..Type your feedback .." +
+                    `<button class="quick-reply-button" onclick="handleQuickReply('feedback ')">Send</button>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                }
+
+                // <button class="quick-reply-button send-message" data-message="dont_want">NO</button>
+
+                if (message === "Have you received any solution and Did the solution provided help you? ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="yes">YES</button>
+                            <button class="quick-reply-button send-message" data-message="no">NO</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                } 
+
+                if (message === "Do you want the help of a technician ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="sure">YES</button>
+                            <button class="quick-reply-button send-message" data-message="decline">NO</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                } 
+
+                if (message === "I'm sorry, we can't process your question right now. Do you want assistance from a technician?") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="sure">YES</button>
+                            <button class="quick-reply-button send-message" data-message="decline">NO</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                } 
+
+                if (message === "I'm sorry to hear that. Have you used the options provided at the top of the webpage. If not please try using it Else Click on Already Used ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button send-message" data-message="already used">Already Used</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                }
+
+                if (message === "Can you please provide me with your full name ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button" onclick="handleQuickReply('name ')">Send</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                } 
+
+                if (message === "You must provide me with some information for me to understand your needs"){
+
+                    chatMessage.innerHTML += ``;
+                        message = "You must provide me with some information for me to understand your needs. You can click on Reset to restart the conversation";
+                        appendMessage(message,'bot');
+                        message = "";
+                        const hasButtons = true;
+                        const sendButton = document.getElementById('send-button');
+                        if (hasButtons) {
+                            sendButton.style.display = 'none';
+                            } else {
+                            sendButton.style.display = 'block';
+                        }
+                }
+
+                if (message === "Ok you can ask your question or use the options provided."){
+
+                    soft = false;
+                    osversion = false;
+                    upgradeto = false;
+                    ubuntu = false;
+                    upgradeto2 = false;
+                    ubuntu2 = false;
+                    func = false;
+                    waitingForAnswer = false;
+                    method = false;
+                    printer = false;
+                    details_shutdown = false;
+                    details_recommend = false;
+                    details_upgrade = false;
+                    details_printer = false;
+                    rephrase = false;
+                }
+
+                if (message === "Can you please provide me with your email address ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button" onclick="handleQuickReply('email ')">Send</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                } 
+
+                if (message === "Can you please provide me with your phone number ..") {
+                    chatMessage.innerHTML += `
+                        <div style="margin-top: 10px;">
+                            <button class="quick-reply-button" onclick="handleQuickReply('phone ')">Send</button>
+                        </div>
+                    `;
+
+                    const hasButtons = true; // Since there is a button in this specific message
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = hasButtons ? 'none' : 'block';
+                } 
+
+                chatMessage.querySelectorAll('.send-message').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const message = button.getAttribute('data-message');
+                        // Call the sendMessageToRasa function or perform any desired action with the message
+                        sendMessageToRasa(message);
+                        const sendButton = document.getElementById('send-button');
+                        sendButton.style.display = 'block';
+                        const all_Buttons = document.querySelectorAll('.quick-reply-button.send-message');
+
+                        // Iterate over the allButtons collection and apply changes to each button
+                        for (let i = 0; i < all_Buttons.length; i++) {
+                            const buton = all_Buttons[i];
+                            buton.style.display = 'none';
+                        }
+
+                        const allButtons = document.getElementsByClassName('quick-reply-button');
+
+                        // Iterate over the allButtons collection and apply changes to each button
+                        for (let i = 0; i < allButtons.length; i++) {
+                            const button = allButtons[i];
+                            button.style.display = 'none';
+                        }
+                    });
+                });
+
+                
+
+
+                if (!waitingForAnswer) {
+                    hideSidebar2();
+                } 
+
+            } else {
+                chatMessage.innerHTML = `
+                    <img class="chat-message-avatar" src="${userAvatar}" alt="${sender} Avatar" />
+                    <div>${message}</div>
+                `;
+            }
+
+            if (message != ""){
+                chatContainer.appendChild(chatMessage);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            }
+
+
+            // addToConversation(message, sender);
+        }
+
+
+
+        async function sendMessageToRasa(message) {
+
+            hideSidebar2();
+            toggleSendButton(true); 
+
+            // Display typing indicator
+            const typingIndicator = document.createElement('span');
+            typingIndicator.classList.add('typing-indicator');
+            const botMessageContainer = document.createElement('div');
+            botMessageContainer.classList.add('chat-message', 'bot');
+            botMessageContainer.appendChild(typingIndicator);
+            chatContainer.appendChild(botMessageContainer);
+
+            const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sender: 'user',
+                    message: message
+                })
+            });
+
+            const responseData = await response.json();
+
+            // Remove typing indicator
+            chatContainer.removeChild(botMessageContainer);
+
+            if (responseData.length === 0) {
+                if (!waitingForAnswer) {
+                    waitingForAnswer = true;
+                    appendMessage("I'm sorry, I did not understand you. Could you please rephrase or ask a different question?", 'bot');
+                    soft = false;
+                    osversion = false;
+                    upgradeto = false;
+                    ubuntu = false;
+                    upgradeto2 = false;
+                    ubuntu2 = false;
+                    func = false;
+                    method = false;
+                    printer = false;
+                    details_shutdown = false;
+                    details_recommend = false;
+                    details_upgrade = false;
+                    details_printer = false;
+                    rephrase = false;
+
+                    const buttons = document.querySelectorAll('.quick-reply-button.send-message');
+                    buttons.forEach(button => {
+                    button.style.display = 'block';
+                    });
+
+                    const sendButton = document.getElementById('send-button');
+                    sendButton.style.display = 'block';
+                } else {
+                    waitingForAnswer = false;
+                    appendMessage("I'm sorry, we can't process your question right now. Do you want assistance from a technician?", 'bot');
+                }
+                toggleSendButton(false); // Enable send button
+                return;
+            }
+
+            responseData.forEach((data) => {
+                const botMessage = data.text;
+                appendMessage(botMessage, 'bot');
+            });
+
+            toggleSendButton(false); // Enable send button
+        }
+
+
+        function handleUserInput(event) {
+            event.preventDefault();
+            const message = userInput.value.trim();
+            if (message === '') {
+                return;
+            }
+            userInput.value = '';
+            appendMessage(message, 'user');
+
+            sendMessageToRasa(message);
+        }
+
+
+        function handleIntentOptionClick(event) {
+            const message = event.target.getAttribute('data-message');
+            // appendMessage(message, 'user');
+            sendMessageToRasa(message);
+        }
+
+        chatForm.addEventListener('submit', handleUserInput);
+        intentOptions.forEach(option => {
+            option.addEventListener('click', handleIntentOptionClick);
+        });
+
+        const sendButton = document.querySelector('#chat-form button[type="submit"]');
+        sendButton.addEventListener('click', handleUserInput);
+
+        function openSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openButton = document.getElementsByClassName("open-sidebar-button")[0];
+            sidebar.style.opacity = "1";
+            sidebar.style.visibility = "visible";
+            openButton.style.display = "none";
+            document.body.classList.remove("sidebar-hidden");
+        }
+
+        function hideSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openButton = document.getElementsByClassName("open-sidebar-button")[0];
+            sidebar.style.opacity = "0";
+            sidebar.style.visibility = "hidden";
+            openButton.style.display = "block";
+            document.body.classList.add("sidebar-hidden");
+        }
+
+        function hideSidebar2() {
+            var sidebar = document.getElementById("sidebar");
+            var openButton = document.getElementsByClassName("open-sidebar-button")[0];
+            sidebar.classList.add("sidebar-transition");
+            setTimeout(function () {
+                sidebar.style.opacity = "0";
+                sidebar.style.visibility = "hidden";
+                openButton.style.display = "block";
+            }, 300);
+            document.body.classList.add("sidebar-hidden");
+        }
+
+
+        function toggleChat() {
+            var chatButton = document.getElementById('chat-button');
+            var chatContainer = document.getElementById('chat-container');
+
+            if (chatContainer.classList.contains('show')) {
+                // Hide the chat container and show the chat button
+                chatContainer.classList.remove('show');
+                chatButton.style.display = 'block';
+            } else {
+                // Show the chat container and hide the chat button
+                chatContainer.classList.add('show');
+                chatButton.style.display = 'none';
+            }
+        }
+
+        function resetChat() {
+            sendMessageToRasa('reset');
+            chatContainer.innerHTML = '';
+            waitingForAnswer = false;
+            soft = false;
+            osversion = false;
+            upgradeto = false;
+            ubuntu = false;
+            upgradeto2 = false;
+            ubuntu2 = false;
+            func = false;
+            method = false;
+            printer = false;
+            details_shutdown = false;
+            details_recommend = false;
+            details_upgrade = false;
+            details_printer = false;
+            rephrase = false;
+            openSidebar()
+            const sendButton = document.getElementById('send-button');
+            sendButton.style.display = 'block';
+        }
+
+
+
+        // function handleQuickReply(reply) {
+        //     const userInput = document.getElementById('user-input');
+        //     userInput.value = reply;
+        //     handleUserInput();
+        // }
+
+        // function handleQuickReply(reply) {
+        //     const userInput = document.getElementById('user-input');
+        //      userInput.value = reply;
+        //      handleUserInput();
+        // }
+        
+        // function handleQuickReply(reply) {
+        //     const userInput = document.getElementById('user-input');
+        //     if (userInput.value === '') {
+
+        //     }
+        //     else{
+        //         const concatenatedInput = reply + userInput.value;
+        //         // handleUserInput(concatenatedInput);
+        //         const message = concatenatedInput.trim();
+        //         if (message === '') {
+        //             return;
+        //         }
+        //         appendMessage(userInput.value, 'user');
+
+        //         userInput.value = '';
+
+        //         sendMessageToRasa(message);
+        //     } 
+        //     // appendMessage(userInput.value, 'user');
+
+        //     // userInput.value = '';
+
+        //     // sendMessageToRasa(message);
+        // }
+
+        // function handleQuickReply(reply) {
+        //     const userInput = document.getElementById('user-input');
+        //     const buttonDataMessage = reply.trim();
+
+        //     if (userInput.value === '') {
+        //         const quickReplyButton = document.querySelector('.quick-reply-button');
+        //         const buttonMessage = quickReplyButton.getAttribute('data-message');
+        //         sendMessageToRasa(buttonMessage);
+        //     } else {
+        //         const concatenatedInput = reply + userInput.value;
+        //         const message = concatenatedInput.trim();
+                
+        //         if (message === '') {
+        //         return;
+        //         }
+                
+        //         appendMessage(userInput.value, 'user');
+        //         userInput.value = '';
+                
+        //         sendMessageToRasa(message);
+        //     }
+        // }
+
+        function handleQuickReply(reply, defaultReply) {
+            const userInput = document.getElementById('user-input');
+            // const buttonDataMessage = reply.trim();
+
+            if (userInput.value === '') {
+                sendMessageToRasa(defaultReply);
+                // if (message != "I'm sorry, I did not understand you. Could you please rephrase or ask a different question?") {
+
+                //    const sendButton = document.getElementById('send-button');
+                //    sendButton.style.display = 'block';
+                // }
+
+                const allButtons = document.getElementsByClassName('quick-reply-button');
+
+                // Iterate over the allButtons collection and apply changes to each button
+                for (let i = 0; i < allButtons.length; i++) {
+                    const button = allButtons[i];
+                    button.style.display = 'none';
+                }
+
+                const all_Buttons = document.querySelectorAll('.quick-reply-button.send-message');
+
+                // Iterate over the allButtons collection and apply changes to each button
+                for (let i = 0; i < all_Buttons.length; i++) {
+                    const buton = all_Buttons[i];
+                    buton.style.display = 'none';
+                }
+
+            }else{
+
+                const concatenatedInput = reply + userInput.value;
+                const message = concatenatedInput.trim();
+                
+                if (message === '') {
+                    return;
+                }
+                
+                appendMessage(userInput.value, 'user');
+                userInput.value = '';
+                
+                sendMessageToRasa(message);
+                // if (message != "I'm sorry, I did not understand you. Could you please rephrase or ask a different question?") {
+
+                //     const sendButton = document.getElementById('send-button');
+                //     sendButton.style.display = 'block';
+                // }
+
+                const allButtons = document.getElementsByClassName('quick-reply-button');
+
+                // Iterate over the allButtons collection and apply changes to each button
+                for (let i = 0; i < allButtons.length; i++) {
+                    const button = allButtons[i];
+                    button.style.display = 'none';
+                }
+
+                const all_Buttons = document.querySelectorAll('.quick-reply-button.send-message');
+
+                // Iterate over the allButtons collection and apply changes to each button
+                for (let i = 0; i < all_Buttons.length; i++) {
+                    const buton = all_Buttons[i];
+                    buton.style.display = 'none';
+                }
+
+            }
+
+            
+        }
+
+
+
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (message !== '') {
+                userInput.value = '';
+                appendMessage(message, 'user');
+                sendMessageToRasa(message);
+            }
+        });
+
+        // Enable send button when user types in the input
+        userInput.addEventListener('input', () => {
+          toggleSendButton(false);
+        });
+
+
+        const saveButton = document.getElementById('save-conversation-button');
+        saveButton.addEventListener('click', saveConversation);
+
+
+        function saveConversation() {
+            const chatMessages = document.querySelectorAll('.chat-message');
+            const table = document.createElement('table');
+            const tableBody = document.createElement('tbody');
+
+            // Create table headers
+            const headerRow = document.createElement('tr');
+            const nameHeader = document.createElement('th');
+            nameHeader.textContent = 'User Name';
+            const contactHeader = document.createElement('th');
+            contactHeader.textContent = 'Contact Details';
+            const contentHeader = document.createElement('th');
+            contentHeader.textContent = 'Conversation';
+            headerRow.appendChild(nameHeader);
+            headerRow.appendChild(contactHeader);
+            headerRow.appendChild(contentHeader);
+            tableBody.appendChild(headerRow);
+
+            // Prompt user for name and contact details
+            const name = prompt('Enter your name:');
+            const contact = prompt('Enter your contact details:');
+
+            // Create table row with conversation in a single cell
+            const row = document.createElement('tr');
+            const nameCell = document.createElement('td');
+            nameCell.textContent = name;
+            const contactCell = document.createElement('td');
+            contactCell.textContent = contact;
+            const conversationCell = document.createElement('td');
+
+            chatMessages.forEach(message => {
+                const sender = message.classList.contains('user') ? 'User' : 'Bot';
+                const content = message.textContent;
+
+                const messageLine = document.createElement('p');
+                messageLine.textContent = `${sender}: ${content}`;
+                conversationCell.appendChild(messageLine);
+            });
+
+            row.appendChild(nameCell);
+            row.appendChild(contactCell);
+            row.appendChild(conversationCell);
+            tableBody.appendChild(row);
+
+            table.appendChild(tableBody);
+
+            // Create the HTML content
+            const htmlContent = `
+                <html>
+                <head>
+                    <title>Conversation</title>
+                    <style>
+                    table {
+                        border-collapse: collapse;
+                    }
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                    }
+                    </style>
+                </head>
+                <body>
+                    ${table.outerHTML}
+                </body>
+                </html>
+            `;
+
+            // Create a Blob from the HTML content
+            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+
+            // Create a link element to trigger the download
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'conversation.html';
+            link.style.display = 'none';
+
+            // Append the link to the DOM and click on it to trigger the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Clean up by removing the link
+            document.body.removeChild(link);
+        }
+
+
+
+        // function appendMessageWithButtons(message, buttonLabels, buttonDataMessages) {
+        //     const messageContainer = document.createElement('div');
+        //     messageContainer.style.marginTop = '10px';
+
+        //     const messageElement = document.createElement('p');
+        //     messageElement.textContent = message;
+        //     messageContainer.appendChild(messageElement);
+
+        //     for (let i = 0; i < buttonLabels.length; i++) {
+        //         const button = createButton(buttonLabels[i], buttonDataMessages[i]);
+        //         messageContainer.appendChild(button);
+        //     }
+
+        //     chatMessage.appendChild(messageContainer);
+        //     }
+
+        // function createButton(label, message) {
+        // const button = document.createElement('button');
+        // button.classList.add('quick-reply-button', 'send-message');
+        // button.dataset.message = message;
+        // button.textContent = label;
+        // return button;
+        // }
+
+
+    </script>
+</body>
+</html>

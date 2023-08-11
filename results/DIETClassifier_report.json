@@ -1,0 +1,112 @@
+{
+  "details": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 23,
+    "confused_with": {}
+  },
+  "software_type": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 38,
+    "confused_with": {}
+  },
+  "verb_details": {
+    "precision": 0.8571428571428571,
+    "recall": 1.0,
+    "f1-score": 0.923076923076923,
+    "support": 12,
+    "confused_with": {}
+  },
+  "lexmark": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 2,
+    "confused_with": {}
+  },
+  "functionality": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 28,
+    "confused_with": {}
+  },
+  "method": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 16,
+    "confused_with": {}
+  },
+  "os_version": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 27,
+    "confused_with": {}
+  },
+  "other_details": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 21,
+    "confused_with": {}
+  },
+  "printer": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 34,
+    "confused_with": {}
+  },
+  "more_details": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 3,
+    "confused_with": {}
+  },
+  "other_info": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 8,
+    "confused_with": {}
+  },
+  "ubuntu_version": {
+    "precision": 0.9846153846153847,
+    "recall": 1.0,
+    "f1-score": 0.9922480620155039,
+    "support": 64,
+    "confused_with": {}
+  },
+  "upgrade_to": {
+    "precision": 0.9761904761904762,
+    "recall": 1.0,
+    "f1-score": 0.9879518072289156,
+    "support": 82,
+    "confused_with": {}
+  },
+  "micro avg": {
+    "precision": 0.9862258953168044,
+    "recall": 1.0,
+    "f1-score": 0.9930651872399445,
+    "support": 358
+  },
+  "macro avg": {
+    "precision": 0.9859960552268245,
+    "recall": 1.0,
+    "f1-score": 0.992559753255488,
+    "support": 358
+  },
+  "weighted avg": {
+    "precision": 0.9870075920355251,
+    "recall": 1.0,
+    "f1-score": 0.9932761096052694,
+    "support": 358
+  },
+  "accuracy": 0.9972662657189721
+}

@@ -1,0 +1,1208 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+# - intent: affirm
+#   examples: |
+#     - yes
+#     - y
+#     - indeed
+#     - of course
+#     - that sounds good
+#     - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+# - intent: ask_continueconversation
+#   examples: |
+#     - [i_reject](continueconversation)
+#     - [i_accept](continueconversation)
+
+- intent: ask_continueconversation2
+  examples: |
+    - [says_no](continueconversation2)
+    - [says_yes](continueconversation2)
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: ask_technician
+  examples: |
+    - sure
+
+- intent: reset_coversation
+  examples: |
+    - reset
+
+- intent: decline_technician
+  examples: |
+    - decline
+
+- intent: decline_feedback
+  examples: |
+    - dont_want
+  
+- intent: no_feedback
+  examples: |
+    - no_feedback
+
+- intent: ask for user information
+  examples: |
+    - already used
+    - name [nilesh](name)
+    - email [m@gmail.com](email)
+    - phone [58273171](phone_number)
+    - feedback [happy](feedback)
+    - feedback [happy](improvement)
+    - feedback [I absolutely love this chatbot! It's so helpful and friendly. It always understands what I need and provides the perfect responses. Keep up the fantastic work!](improvement)
+    - feedback [This chatbot is a lifesaver! It made my day so much easier. I asked a tricky question, and it quickly gave me a detailed and accurate answer. I'm impressed!](improvement)
+    - feedback [Thank you for this fantastic chatbot. It's like talking to a real person. I appreciate how quickly it responds and how accurate its information is. I'm impressed!](improvement)
+   
+#    - my name is [Nilesh Dwarka](name)
+#   - [Devesh Udhin](name)
+#    - [Nilesh](name)
+#    - [Nilesh](name) is my name
+#    - you can call me [Emilie](name)
+#    - my phone number is [58273171](phone_number)
+#    - [58273171](phone_number)
+#    - my number is [57836353](phone_number)
+#    - [57225663](phone_number) is my number
+#    - you can call me on [58311337](phone_number)
+#    - my email address is [devi@gmail.com](email)
+#    - [paxtonyoshida@gmail.com](email)
+#    - [niresh.dwarka@umail.uom.ac.mu]
+#    - my email is [bengross@gmail.com](email)
+#    - [eleanor1234@outlook.com](email) is my email
+#    - you can email me on [58273171@umail.uom.ac.mu](email)
+#    - please add [more options](feedback)
+#    - improve your [knowledge base](feedback)
+#    - work on your [gui](feedback)
+#    - work on your [response time](feedback)
+#    - reduce your [response time](feedback)
+
+- regex: feedback
+  examples: |
+    - (?<=feedback )(.+)
+
+- regex: name
+  examples: |
+    - (?<=name )(.+)
+
+- regex: email
+  examples: |
+    - (?<=email )(.+)
+
+- regex: phone_number
+  examples: |
+    - (?<=phone )(.+)
+
+
+- intent: happy_feedback
+  examples: |
+    - yes
+    - improvement [happy](improvement)
+    - improvement [I absolutely love this chatbot! It's so helpful and friendly. It always understands what I need and provides the perfect responses. Keep up the fantastic work!](improvement)
+    - improvement [This chatbot is a lifesaver! It made my day so much easier. I asked a tricky question, and it quickly gave me a detailed and accurate answer. I'm impressed!](improvement)
+    - improvement [Thank you for this fantastic chatbot. It's like talking to a real person. I appreciate how quickly it responds and how accurate its information is. I'm impressed!](improvement)
+    - [i_reject](continueconversation)
+    - [i_accept](continueconversation)
+
+- regex: improvement
+  examples: |
+    - (?<=improvement )(.+)
+
+# - intent: sad_feedback
+#   examples: |
+#     - feedback [happy](feedback)
+
+
+- intent: setup_printer
+  examples: |
+    - Install printer [Lexmark X4690](printer) on [12.04](os_version)
+    - [standard_version](os_version)
+    - on [12.04](os_version)
+    - [nope](more_details)
+    - Cannot setup [HP DJ3630](printer) All in one 
+    - How do I install the [Hp F4280](lexmark) printer?
+    - How do I setup my [Hp C4140](printer) printer [wirelessly](more_details)?
+    - No matter what I do on [15.04](os_version) does not recognize [Hp LaserJet-1020](printer)
+    - How to setup [HP](printer) printer/scanner on ubuntu?
+    - How to add a [network](printer) printer on [15.10](os_version)?
+    - Cannot install printer [driver](more_details) [epson l210](printer)
+    - Installing [Epson XP-424](printer) wireless printer
+    - Installing [EPSON L355](printer) on [14.04](os_version)
+    - How do I install [Dell 2150cdn](printer) printer
+    - How to Install a [Canon MF8040Cn](printer) Printer on [12.04](os_version)
+    - How Do I Install [Canon MF8000C](printer) Printer on [15.10](os_version)?
+    - How to install [Canon LBP330](printer) on [Lts 16.04](os_version)
+    - How To Install [Canon LBP2900B](printer) printer on [14.04 LTS](os_version) ? I tried the method for LBP2900 but it didnt work
+    - Install [Canon MP560](printer) on [15.04](os_version)
+    - How to Install [Brother DCP-8110DN](printer) [laser](more_details) Printer on Ubuntu?
+    - How to install a [Brother MFC-5890CN](printer) [network](more_details) printer?
+    - How can I install a [Pantum 2502W](printer) [laser](more_details) printer on Ubuntu
+    - How do I install [driver](more_details) for a [Konica Minolta 200](printer)?
+    - How do I install [driver](more_details) for the [Panasonic MB1900CX](printer) All-in-One Printer/Scanner?
+    - os_version install [driver](more_details)
+    - os_version [wirelessly](more_details)
+    - os_version [network](more_details)
+    - os_version [laser](more_details)
+    - os_version [driver](more_details)
+    - printer [Lexmark X4690](printer)
+    - printer [Panasonic MB1900CX](printer)
+    - os_version i want to upgrade from [12.00](os_version)
+    - os_version my current version is [12.00 Beta](os_version)
+    - os_version [12.00 LTS](os_version) is my current version
+    - os_version [12.00 32bit](os_version) is the version i am using
+    - os_version i am currently on [12.00 64bit](os_version)
+    - os_version [12.00](os_version)
+    - os_version i am running version [14.04.1](os_version)
+    - os_version i have [14.04.1 LTS](os_version) installed
+
+
+
+- regex: more_details
+  examples: |
+    - nope
+    - (?<=os_version ).*?\bwireless\b
+    - (?<=os_version ).*?\bwirelessly\b
+    - (?<=os_version ).*?\bnetwork\b
+    - (?<=os_version ).*?\blaser\b
+    - (?<=os_version ).*?\bdriver\b
+#    - (?<=details: )install (\w+)
+#    - (?<=details: )(\w+)
+
+# - regex: printer
+#   examples: |
+#     - printer (\w+(?:[-\s]\w+)*)
+
+
+- intent: upgrade
+  examples: |
+    - Upgrading from [11.10](ubuntu_version) to [12.04](upgrade_to)
+    - How do I upgrade to the release version of [16.04](upgrade_to) if I am running [Beta](ubuntu_version)?
+    - [Doubts](other_details) regarding the [15.04](upgrade_to) upgrade (is it inevitable and unavoidable?)
+    - Is any [offline](other_details) upgrade from [13.10](ubuntu_version) to [14.04](upgrade_to) possible?
+    - Upgrading from Ubuntu [12.04](ubuntu_version) to [13.10](upgrade_to)
+    - Ubuntu upgrade [failed](other_details)
+    - Upgrading from [12.04](ubuntu_version) to [13.10](upgrade_to) ( Unanswered questions )
+    - upgrading to Ubuntu [13.10](upgrade_to) from Ubuntu [13.04](ubuntu_version)
+    - [Force](other_details) upgrade [12.10](ubuntu_version) to [13.04](upgrade_to)
+    - How to [partially](other_details) upgrade to Ubuntu [11.10](ubuntu_version) from Ubuntu [11.04](upgrade_to)?
+    - [Problem](other_details) upgrading to Ubuntu [9.10](upgrade_to)
+    - Is it [necessary](other_details) to upgrade to [15.10](upgrade_to) from [14.04](ubuntu_version)?
+    - How do I update Ubuntu [11.10](ubuntu_version) to Ubuntu [12.04 LTS](upgrade_to)?
+    - Why did the upgrade from [11.10](ubuntu_version) to [12.04](upgrade_to) [ruin](other_details) my system?
+    - [Problem](other_details) upgrading from [12.04](ubuntu_version) to [14.04](upgrade_to)
+    - [Problem](other_details) upgrading Ubuntu [12.10](ubuntu_version) to [13.04](upgrade_to)
+    - Upgrade from [12.04](ubuntu_version) to [12.10](upgrade_to) [without losing files](other_details)?
+    - Do I need to [uninstall](other_details) [10.04](ubuntu_version) to upgrade to [12.04](upgrade_to)?
+    - Do I need to [reinstall](other_details) everything to upgrade from [13.10](ubuntu_version) to [14.10](upgrade_to)?
+    - upgrade to [15.04](upgrade_to) rather than [16.04](upgrade_to)
+    - Upgrading [16.04](ubuntu_version) to [16.04.1](upgrade_to)
+    - Upgrading Ubuntu Server [9.10](ubuntu_version) to [10.04](upgrade_to)
+    - Ho do I update to [13.04](upgrade_to) from the [beta](ubuntu_version)?
+    - How to upgrade from [12.10](ubuntu_version) to [14.04](upgrade_to)
+    - Upgrading from [10.10](ubuntu_version) to [11.04](upgrade_to) how much [space](other_details) is needed?
+    - Do I need to [backup](other_details) my [12.04](ubuntu_version) system to upgrade to [12.04.1](upgrade_to)?
+    - Cannot upgrade from [12.04 LTS](ubuntu_version) to [14.04](upgrade_to)
+    - Upgrade [10.10](ubuntu_version) to [11.04](upgrade_to)
+    - How to upgrade from [14.04 LTS](ubuntu_version) or [15.10](upgrade_to) to [16.04](upgrade_to) from [terminal](other_details)
+    - How to upgrade from [16.04 LTS](ubuntu_version) to [16.04.1 LTS](upgrade_to)
+    - Upgrading from [10.04](ubuntu_version) to [11.10](upgrade_to)
+    - How can i upgrade to Ubuntu [14.04](upgrade_to) final from [14.04 Beta](ubuntu_version) correctly?
+    - Is there an upgrade procedure from [12.04 LTS](ubuntu_version) to [14.04 LTS](upgrade_to)
+    - Upgrade from [9.10](ubuntu_version) to [11.04](upgrade_to)
+    - How to upgrade Ubuntu [12.04(ubuntu_version) to [14.04](upgrade_to) if I have [dual-boot](other_details) with windows 7?
+    - Using [12.04](ubuntu_version) can I [compile](other_details) packages with gcc for [10.04](upgrade_to)?
+    - Upgrading From [11.04 32bit](ubuntu_version) to [12.04 64bit](upgrade_to)
+    - Is it worth upgrading from [12.04LTS](ubuntu_version) to [13.04](upgrade_to)
+    - Upgrade to [12.04 64bit](upgrade_to)
+    - How to upgrade Ubuntu [14.04.1](ubuntu_version) to [14.04.2](upgrade_to)?
+    - Upgrading from Ubuntu [14.04](ubuntu_version) to [15.04](upgrade_to)
+    - how to upgrade from Ubuntu [15.04](ubuntu_version) to [15.10](upgrade_to)?
+    - Upgrade [12.04](ubuntu_version) to [12.10](upgrade_to) using [startup disk](other_details)
+    - How to Upgrade from [11.10](ubuntu_version) to [12.04](upgrade_to) when you've got a problem?
+    - Update [11.04](ubuntu_version) to [12.04](upgrade_to) with [LiveCD](other_details)
+    - How to upgrade Ubuntu [9.10](ubuntu_version) to [12.10](upgrade_to) via [terminal](other_details)?
+    - How to upgrade from Ubuntu [10.10](ubuntu_version) to [11.04](upgrade_to)?
+    - upgrade_to i want to upgrade to [12.00](upgrade_to)
+    - upgrade_to i want to upgrade to [12.00 Beta](upgrade_to)
+    - upgrade_to i want to upgrade to [12.00 LTS](upgrade_to)
+    - upgrade_to i want to upgrade to [12.00 32bit](upgrade_to)
+    - upgrade_to i want to upgrade to [12.00 64bit](upgrade_to)
+    - upgrade_to i want to move to [14.04.1 LTS](upgrade_to)
+    - upgrade_to I'm interested in upgrading to Ubuntu version [12.04](upgrade_to)."
+    - upgrade_to I'm looking to update my current Ubuntu installation to version [12.04](upgrade_to)."
+    - upgrade_to I want to upgrade my Ubuntu system to the [12.04 Beta](upgrade_to) version."
+    - upgrade_to Is it possible to update to Ubuntu [12.04 LTS](upgrade_to) from my current version?"
+    - upgrade_to I'm considering updating my Ubuntu to version [12.04.01 Lts](upgrade_to), how can I do that?"
+    - upgrade_to I'm thinking about upgrading my Ubuntu installation to [12.04.01](upgrade_to), any advice on how to proceed?"
+    - upgrade_to Can you guide me through the process of updating my Ubuntu to version [12.04.03 64bit](upgrade_to)?"
+    - upgrade_to I've decided to update my Ubuntu to version [12.04.04 Beta](upgrade_to), what are the steps I need to follow?"
+    - upgrade_to I'm planning to upgrade my Ubuntu to [12.04 64bit](upgrade_to), is there any specific procedure I should follow?"
+    - upgrade_to I want to bring my Ubuntu installation up to date with version [12.04 32bit](upgrade_to), what's the best way to accomplish that?"
+    - ubuntu_version i want to upgrade from [12.00](ubuntu_version)
+    - ubuntu_version my current version is [12.00 Beta](ubuntu_version)
+    - ubuntu_version [12.00 LTS](ubuntu_version) is my current version
+    - ubuntu_version [12.00 32bit](ubuntu_version) is the version i am using
+    - ubuntu_version i am currently on [12.00 64bit](ubuntu_version)
+    - ubuntu_version [12.00](ubuntu_version)
+    - ubuntu_version i am running version [14.04.1](ubuntu_version)
+    - ubuntu_version i have [14.04.1 LTS](ubuntu_version) installed
+    - ubuntu_version My operating system is Ubuntu, specifically version [12.04](ubuntu_version).
+    - ubuntu_version I have Ubuntu installed on my computer, and it's version [12.04 LTS](ubuntu_version).
+    - ubuntu_version I'm currently running Ubuntu [12.04](ubuntu_version) on my system.
+    - ubuntu_version The Ubuntu version I'm using is [12.04](ubuntu_version).
+    - ubuntu_version I have Ubuntu installed, and it's the [12.04 Beta](ubuntu_version) release.
+    - ubuntu_version On my computer, I'm running Ubuntu version [12.04 64bit](ubuntu_version).
+    - ubuntu_version I'm utilizing Ubuntu, and it's the [12.04](ubuntu_version) version.
+    - ubuntu_version The specific Ubuntu version I have is [12.04 32bit](ubuntu_version).
+    - ubuntu_version I've chosen to run Ubuntu on my machine, and it's the [12.04](ubuntu_version) release.
+    - ubuntu_version In terms of my operating system, I'm using Ubuntu [12.04](ubuntu_version).
+    - ubuntu_version i want to upgrade my ubuntu version [12.04](ubuntu_version) by [force](other_details)
+    - upgarde_to i want to upgrade to version [13.02.1 Beta](upgrade_to) [partially](other_details)
+    - upgrade to Ubuntu [11.10](upgrade_to) from Ubuntu [11.04](ubuntu_version)?
+    - How to upgrade to Ubuntu [11.10.26](upgrade_to) from Ubuntu [11.10.27](ubuntu_version)?
+    - How upgrade to Ubuntu [9.10](upgrade_to) from Ubuntu [10.10 LTS](ubuntu_version)?
+    - upgrading to Ubuntu [8.10 Beta](upgrade_to) from Ubuntu [11.04](ubuntu_version)?
+    - upgrading to Ubuntu [10.10](upgrade_to) from Ubuntu [11.04](ubuntu_version)?
+    - upgrading to Ubuntu [11.12.1](upgrade_to) from Ubuntu [11.12.2](ubuntu_version)?
+    - upgrading to Ubuntu [12..12.1 LTS](upgrade_to) from Ubuntu [12.12.1 64bit](ubuntu_version)?
+    - update Ubuntu [11.10](ubuntu_version) to Ubuntu [12.04 LTS](upgrade_to)
+    - update Ubuntu [9.10 LTS](ubuntu_version) to Ubuntu [12.04 LTS](upgrade_to)
+    - update Ubuntu [11.00](ubuntu_version) to Ubuntu [12.04 Beta](upgrade_to)
+    - update Ubuntu [8.00 64bit](ubuntu_version) to Ubuntu [12.04 LTS](upgrade_to)
+    - update Ubuntu [12.02.1](ubuntu_version) to Ubuntu [12.04.1 LTS](upgrade_to)
+    - upgrading from Ubuntu [8.10 Beta](ubuntu_version) to Ubuntu [11.04](upgrade_to)?
+    - upgrading from Ubuntu [10.10](ubuntu_version) to Ubuntu [11.04](upgrade_to)?
+    - upgrading from Ubuntu [11.12.1](ubuntu_version) to Ubuntu [11.12.2](upgrade_to)?
+    - upgrading from Ubuntu [12..12.1 LTS](ubuntu_version) to Ubuntu [12.12.1 64bit](upgrade_to)?
+    - [Problem](other_details) upgrading Ubuntu [9.10](ubuntu_version)
+    - upgrading to Ubuntu [9.10](upgrade_to)
+    - upgrading to Ubuntu [12.12.2](upgrade_to)
+    - upgrading to Ubuntu [12.12 LTS](upgrade_to)
+    - [anything](ubuntu_version)
+    - [regular_version](upgrade_to)
+    - [nothing](other_details)
+    - [doubts](other_details)
+    - ubuntu_version how to do an upgrade [offline](other_details)
+    - ubuntu_version why did it [fail](other_details)
+    - ubuntu_version How to do upgarde by [force](other_details)
+    - ubuntu_version How to upgarde [partially](other_details)
+    - ubuntu_version [problem](other_details) upgrading
+    - ubuntu_version is it [necessary](other_details)
+    - ubuntu_version why did [ruin](other_details)
+    - ubuntu_version upgrade [without losing files](other_details)
+    - ubuntu_version do i need [uninstall](other_details)
+    - ubuntu_version is it necessary to [reinstall](other_details)
+    - ubuntu_version How much [space](other_details)
+    - ubuntu_version Do i need a [backup](other_details)
+    - ubuntu_version using the [terminal](other_details)
+    - ubuntu_version how to [compile](other_details)
+    - ubuntu_version using a [startup disk](other_details)
+    - ubuntu_version i want to use a [livecd](other_details)
+    - ubuntu_version i am having [doubts](other_details)
+    - upgrade_to how to do an upgrade [offline](other_details)
+    - upgrade_to why did it [fail](other_details)
+    - upgrade_to How to do upgarde by [force](other_details)
+    - upgrade_to How to upgarde [partially](other_details)
+    - upgrade_to [problem](other_details) upgrading
+    - upgrade_to is it [necessary](other_details)
+    - upgrade_to why did [ruin](other_details)
+    - upgrade_to upgrade [without losing files](other_details)
+    - upgrade_to do i need [uninstall](other_details)
+    - upgrade_to is it necessary to [reinstall](other_details)
+    - upgrade_to How much [space](other_details)
+    - upgrade_to Do i need a [backup](other_details)
+    - upgrade_to using the [terminal](other_details)
+    - upgrade_to how to [compile](other_details)
+    - upgrade_to using a [startup disk](other_details)
+    - upgrade_to i want to use a [livecd](other_details)
+    - upgrade_to i am having [doubts](other_details)
+    - from ubuntu [16.04](ubuntu_version)
+    - using ubuntu [17.03 LTS](ubuntu_version)
+    - from [18.02 Beta](ubuntu_version)
+    - upgrade ubuntu [12.03.3](ubuntu_version)
+    - upgrade [13.03 64bit](ubuntu_version)
+    - update ubuntu [14.00](ubuntu_version)
+    - from ubuntu version [16.04](ubuntu_version)
+    - using ubuntu version [17.03 LTS](ubuntu_version)
+    - from version [18.02 Beta](ubuntu_version)
+    - upgrade ubuntu version [12.03.3](ubuntu_version)
+    - upgrade version [13.03 64bit](ubuntu_version)
+    - update ubuntu version [14.00](ubuntu_version)
+    - update version [13.00](ubuntu_version)
+    - to ubuntu [16.04](upgrade_to)
+    - to [17.03 LTS](upgrade_to)
+    - to ubuntu version [16.04](upgrade_to)
+    - to version [17.03 LTS](upgrade_to)
+    - from version [16.04](ubuntu_version)
+    - using version [17.03 LTS](ubuntu_version)
+    - from version [18.02 Beta](ubuntu_version)
+    - upgrade version [12.03.3](ubuntu_version)
+    - upgrade version [13.03 64bit](ubuntu_version)
+    - update version [14.00](ubuntu_version)
+    - to version [16.04](upgrade_to)
+    - from my ubuntu [16.04](ubuntu_version)
+    - using my ubuntu [17.03 LTS](ubuntu_version)
+    - from my [18.02 Beta](ubuntu_version)
+    - upgrade my ubuntu [12.03.3](ubuntu_version)
+    - upgrade my [13.03 64bit](ubuntu_version)
+    - update my ubuntu [14.00](ubuntu_version)
+    - from my ubuntu version [16.04](ubuntu_version)
+    - using my ubuntu version [17.03 LTS](ubuntu_version)
+    - from my version [18.02 Beta](ubuntu_version)
+    - upgrade my ubuntu version [12.03.3](ubuntu_version)
+    - upgrade my version [13.03 64bit](ubuntu_version)
+    - update my ubuntu version [14.00](ubuntu_version)
+    - update my version [13.00](ubuntu_version)
+
+
+- regex: ubuntu_version
+  examples: |
+    - anything
+    - (?<=ubuntu_version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from Ubuntu version)\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade Ubuntu version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update Ubuntu version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=ubuntu_version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from my Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from my Ubuntu version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from my version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using my Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from my )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using my )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using my version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade my Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade my Ubuntu version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade my )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade my version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update my Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update my )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update my Ubuntu version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update my version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+
+
+- regex: upgrade_to
+  examples: |
+    - regular_version
+    - (?<=upgrade_to )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=to Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=to )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=to Ubuntu version)\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=to version)\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    
+
+#    - \b(?<=to )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+#    - (?<=upgrade_to )\b((?:d{2}\.\d{2}\.\d{1})|(?:d{1}\.\d{2}))|(?:d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+#    - (?<=upgrade_to )\b([^ \n]+(?: LTS| Beta| 32bit| 64bit)?)\b
+#    - ^to\b.*?(\d{2}\.\d{2}(?:\s+(?:LTS|Beta|32bit|64bit))?)$
+#   - ^to\b.*?([^ \n]+(?: LTS| Beta| 32bit| 64bit)?)
+#        - (?<=to )([^ \n]+(?: LTS| Beta| 32bit| 64bit)?)
+
+
+- regex: other_details
+  examples: |
+     - nothing
+     - (?<=ubuntu_version ).*?\bdoubts\b
+     - (?<=ubuntu_version ).*?\boffline\b
+     - (?<=ubuntu_version ).*?\bfail\b
+     - (?<=ubuntu_version ).*?\bforce\b
+     - (?<=ubuntu_version ).*?\bpartially\b
+     - (?<=ubuntu_version ).*?\bproblem\b
+     - (?<=ubuntu_version ).*?\bnecessary\b
+     - (?<=ubuntu_version ).*?\bruin\b
+     - (?<=ubuntu_version ).*?\bwithout losing files\b
+     - (?<=ubuntu_version ).*?\buninstall\b
+     - (?<=ubuntu_version ).*?\breinstall\b
+     - (?<=ubuntu_version ).*?\bspace\b
+     - (?<=ubuntu_version ).*?\bbackup\b
+     - (?<=ubuntu_version ).*?\bterminal\b
+     - (?<=ubuntu_version ).*?\bcompile\b
+     - (?<=ubuntu_version ).*?\bstartup disk\b
+     - (?<=ubuntu_version ).*?\blivecd\b
+     - (?<=upgrade_to ).*?\bdoubts\b
+     - (?<=upgrade_to ).*?\boffline\b
+     - (?<=upgrade_to ).*?\bfail\b
+     - (?<=upgrade_to ).*?\bforce\b
+     - (?<=upgrade_to ).*?\bpartially\b
+     - (?<=upgrade_to ).*?\bproblem\b
+     - (?<=upgrade_to ).*?\bnecessary\b
+     - (?<=upgrade_to ).*?\bruin\b
+     - (?<=upgrade_to ).*?\bwithout losing files\b
+     - (?<=upgrade_to ).*?\buninstall\b
+     - (?<=upgrade_to ).*?\breinstall\b
+     - (?<=upgrade_to ).*?\bspace\b
+     - (?<=upgrade_to ).*?\bbackup\b
+     - (?<=upgrade_to ).*?\bterminal\b
+     - (?<=upgrade_to ).*?\bcompile\b
+     - (?<=upgrade_to ).*?\bstartup disk\b
+     - (?<=upgrade_to ).*?\blivecd\b
+
+- intent: recommend
+  examples: |
+    - What software can I use to [view](functionality) [epub](software_type) documents?
+    - Which [pdf](software_type) [Viewer](functionality) would you recommend?
+    - What [ides](software_type) are available for Ubuntu?
+    - What's the best [mind](software_type) [mapping](functionality) Software?
+    - Software to [read](functionality) a [qr code](software_type)?
+    - [pdf to word](other_info) [conversion](functionality) software?
+    - Is there software that can [view](functionality) [.dwg](software_type) files?
+    - What are some good [php](software_type) [editors](functionality)?
+    - Is there a software utility to [adjust](functionality) [screen](software_type) gamma/brightness/contrast?
+    - Please recommend a [hex](software_type) [editor](functionality) for shell
+    - Is there [lan topology](software_type) [mapping](functionality) software available in ubuntu? 
+    - Is there a tool like [wifi](software_type) [analyzer](functionality) for ubuntu? 
+    - Tool for [recovering](functionality) deleted [data](software_type) from a [flash drive](other_info)   ----
+    - Any app that tells me to [take regular breaks](functionality) from working?
+    - What are some good [ascii art](software_type) [generators](functionality)?
+    - What are some good [gui binary](software_type) [editors](functionality)?
+    - Which is the best [pdf metadata](software_type) [viewer](functionality) for Ubuntu?
+    - Is there a linux [file](software_type) [manager](functionality) with [drop-down tree view](other_info)? (like finder in OS X) --
+    - Which application do you recommend for [watching](functionality) [TV](software_type) (DVB)?
+    - What Is The Best [hdr](software_type) Software?
+    - What do you use to [edit](functionality) [microsoft word](software_type) documents (docx)?
+    - What's the best [Wireframing](software_type) tool?
+    - Is there any software that will do [face](software_type) [recognition](functionality) in [photos](other_info)?
+    - Applications to replace iTunes for [iPod](software_type) [synchronization](functionality)
+    - Is there an [SSH connection](software_type) [manager](functionality)?
+    - A light alternative to [gnome-system-monitor](software_type)?
+    - Software to [create](functionality) a [video](software_type) [slideshow](other_info)? ----
+    - Is there a [project](software_type) [management](functionality) software for Ubuntu like Microsoft Project?
+    - Is there any [recovery](functionality) software available for ext4?
+    - What [blog](software_type) [editor](functionality) software are available?
+    - Can you recommend a good modern [gui](software_type) [download](other_info) [manager](functionality) (wget wrapper?)
+    - Is there any program for [fuzzy string](software_type) [matching](functionality) which provides [match score](other_info)? --
+    - Are there any [hardware](software_type) [diagnostic](functionality) tools?
+    - Recommendation for [Regex](software_type) [editor](functionality)?
+    - Wubi Device /dev/loop0 full. How to [get](functionality) more [space](software_type)?
+    - [Removing](functionality) [Recently used](other_info) [items](software_type) in 12.04 --
+    - In Unity how do I [see](functionality) the [details](other_info) of a given [launcher](software_type)?
+    - Any [command line](other_info) [calculator](software_type) for Ubuntu?
+    - [Extracting](functionality) embedded [images](software_type) [from a pdf](other_info)  ----
+    - What to use to quickly [cut](functionality) [audio](software_type)/Video
+    - What to use to quickly [cut](functionality) Audio/[video](software_type)
+    - [mysql gui](software_type) Tools ----
+    - What [developer text](software_type) [editors](functionality) are available for Ubuntu?
+    - What [screenshot](functionality) tool are available? ----
+    - Which programs can I use to [edit](functionality) [pdf](software_type) files?
+    - Is there a lightweight tool to [crop](functionality) [images](software_type) quickly?
+    - What [irc clients](software_type) are available?
+    - What new [games](software_type) are available for Ubuntu in [2011](other_info)?
+    - [upnp/dlna](software_type) (client) [player](functionality) recommendations?
+    - [upnp](software_type)/dlna (client) [player](functionality) recommendations?
+    - UPNP/[dlna](software_type) (client) [player](functionality) recommendations?
+    - What [scientific plotting](software_type) software is available?
+    - Can you recommend a [password](software_type) [generator](functionality)?
+    - What tools do you use to [monitor](functionality) a [web server](software_type)?
+    - What is a good [mongodb gui client](software_type)?
+    - [password](software_type) [Management](functionality) Applications?
+    - Is there an application for [reading](functionality) [mobi](software_type) files?
+    - [not sure](functionality)
+    - type i want a [mongodb gui client](software_type) software
+    - type on [terminal](other_info)
+    - type i want to [read](functionality)
+    - [no thanks](other_info)
+    - [default](software_type)
+    - type [not sure](functionality)
+    - type [editting](functionality)
+    - type [editor](functionality)
+    - type [editors](functionality)
+    - type [edits](functionality)
+    - type [editted](functionality)
+    - type [converts](functionality)
+    - type [convertor](functionality)
+    - type [converted](functionality)
+    - type [conversion](functionality)
+    - type [converting](functionality)
+    - type [adjusting](functionality)
+    - type [adjustment](functionality)
+    - type [adjusted](functionality)
+    - type [mapping](functionality)
+    - type [maps](functionality)
+    - type [mapped](functionality)
+    - type [mapper](functionality)
+    - type [matching](functionality)
+    - type [matches](functionality)
+    - type [matched](functionality)
+    - type [matcher](functionality)
+    - type [analyzes](functionality)
+    - type [analyzer](functionality)
+    - type [analyzed](functionality)
+    - type [analyzing](functionality)
+    - type [recovering](functionality)
+    - type [recovers](functionality)
+    - type [recovered](functionality)
+    - type [recovery](functionality)
+    - type [generates](functionality)
+    - type [generated](functionality)
+    - type [generator](functionality)
+    - type [generating](functionality)
+    - type [views](functionality)
+    - type [viewing](functionality)
+    - type [viewed](functionality)
+    - type [viewer](functionality)
+    - type [manages](functionality)
+    - type [managed](functionality)
+    - type [manager](functionality)
+    - type [management](functionality)
+    - type [managing](functionality)
+    - type [watching](functionality)
+    - type [watched](functionality)
+    - type [watches](functionality)
+    - type [recognition](functionality)
+    - type [recognized](functionality)
+    - type [recognises](functionality)
+    - type [recognizing](functionality)
+    - type [recognizer](functionality)
+    - type [synchronization](functionality)
+    - type [synchronizing](functionality)
+    - type [synchronizes](functionality)
+    - type [synchronized](functionality)
+    - type [synchronizer](functionality)
+    - type [creates](functionality)
+    - type [creation](functionality)
+    - type [created](functionality)
+    - type [creating](functionality)
+    - type [creator](functionality)
+    - type [diagnosis](functionality)
+    - type [diagnostic](functionality)
+    - type [diagnoses](functionality)
+    - type [diagnosed](functionality)
+    - type [getting](functionality)
+    - type [gets](functionality)
+    - type [got](functionality)
+    - type [removing](functionality)
+    - type [removed](functionality)
+    - type [removes](functionality)
+    - type [remover](functionality)
+    - type [seeing the details](functionality)
+    - type [recovering](functionality)
+    - type [recovers](functionality)
+    - type [recovered](functionality)
+    - type [recovery](functionality)
+    - type [extracting](functionality)
+    - type [extracted](functionality)
+    - type [extracts](functionality)
+    - type [extraction](functionality)
+    - type [cutting](functionality)
+    - type [cuts](functionality)
+    - type [cutter](functionality)
+    - type [crops](functionality)
+    - type [cropped](functionality)
+    - type [cropping](functionality)
+    - type [plays](functionality)
+    - type [played](functionality)
+    - type [player](functionality)
+    - type [playing](functionality)
+    - type [monitors](functionality)
+    - type [monitored](functionality)
+    - type [monitoring](functionality)
+    - type [reading](functionality)
+    - type [reads](functionality)
+    - type [reader](functionality)
+    - type [saw](functionality)
+    - type [seeing](functionality)
+    - type [sees](functionality)
+    - type [pdf to word](other_info)
+    - type from a [flash drive](other_info)
+    - type with [drop-down tree view](other_info)
+    - type [match score](other_info)
+    - type [download](other_info)
+    - type in [photos](other_info)
+    - type [slideshow](other_info)
+    - type [recently used](other_info)
+    - type [details](other_info)
+    - type using [command line](other_info)
+    - type [from a pdf](other_info)
+    - type in [2011](other_info)
+
+# need to add type for all
+
+- regex: other_info
+  examples: |
+     - no thanks
+     - (?<=type ).*?\bpdf to word\b
+     - (?<=type ).*?\bflash drive\b
+     - (?<=type ).*?\bdrop-down tree view\b
+     - (?<=type ).*?\bmatch score\b
+     - (?<=type ).*?\bdownload\b
+     - (?<=type ).*?\bphotos\b
+     - (?<=type ).*?\bslideshow\b
+     - (?<=type ).*?\brecently used\b
+     - (?<=type ).*?\bdetails\b
+     - (?<=type ).*?\bcommand line\b
+     - (?<=type ).*?\bfrom a pdf\b
+     - (?<=type ).*?\b2011\b
+     
+#    - (?<=from a )(.+)
+#    - (?<=with )(.+)
+#    - (?<=in )(.+)
+#    - (?<=which )(.+)
+
+- regex: functionality
+  examples: |
+      - not sure
+      - (?<=type ).*?\bview\b
+      - (?<=type ).*?\bmap\b
+      - (?<=type ).*?\bread\b
+      - (?<=type ).*?\bconvert\b
+      - (?<=type ).*?\bview\b
+      - (?<=type ).*?\bedit\b
+      - (?<=type ).*?\badjust\b
+      - (?<=type ).*?\banalyze\b
+      - (?<=type ).*?\brecover\b
+      - (?<=type ).*?\btake regular break\b
+      - (?<=type ).*?\bgenerate\b
+      - (?<=type ).*?\bmanage\b
+      - (?<=type ).*?\bwatch\b
+      - (?<=type ).*?\brecognise\b
+      - (?<=type ).*?\bsynchronise\b
+      - (?<=type ).*?\bcreate\b
+      - (?<=type ).*?\bmatch\b
+      - (?<=type ).*?\bdiagnose\b
+      - (?<=type ).*?\bget\b
+      - (?<=type ).*?\bremove\b
+      - (?<=type ).*?\bsee\b
+      - (?<=type ).*?\bextract\b
+      - (?<=type ).*?\bcut\b
+      - (?<=type ).*?\bscreenshot\b
+      - (?<=type ).*?\bcrop\b
+      - (?<=type ).*?\bplay\b
+      - (?<=type ).*?\bmonitor\b
+#        - (?<=operation )(.+)
+
+
+- regex: software_type
+  examples: |
+     - default
+     - (?<=type ).*?\bepub\b
+     - (?<=type ).*?\bpdf\b
+     - (?<=type ).*?\bmind\b
+     - (?<=type ).*?\bqr code\b
+     - (?<=type ).*?\b.dwg\b
+     - (?<=type ).*?\bphp\b
+     - (?<=type ).*?\bscreen\b
+     - (?<=type ).*?\bhex\b
+     - (?<=type ).*?\blan topology\b
+     - (?<=type ).*?\bwifi\b
+     - (?<=type ).*?\bdata\b
+     - (?<=type ).*?\bascii art\b
+     - (?<=type ).*?\bgui binary\b
+     - (?<=type ).*?\bpdf metadata\b
+     - (?<=type ).*?\bfile\b
+     - (?<=type ).*?\btv\b
+     - (?<=type ).*?\bhdr\b
+     - (?<=type ).*?\bmicrosoft word\b
+     - (?<=type ).*?\bwireframing\b
+     - (?<=type ).*?\bface\b
+     - (?<=type ).*?\bipod\b
+     - (?<=type ).*?\bssh connection\b
+     - (?<=type ).*?\bgnome system monitor\b
+     - (?<=type ).*?\bvideo\b
+     - (?<=type ).*?\bproject\b
+     - (?<=type ).*?\bblog\b
+     - (?<=type ).*?\bgui\b
+     - (?<=type ).*?\bfuzzy string\b
+     - (?<=type ).*?\bhardware\b
+     - (?<=type ).*?\bregex\b
+     - (?<=type ).*?\bspace\b
+     - (?<=type ).*?\bitems\b
+     - (?<=type ).*?\blauncher\b
+     - (?<=type ).*?\bcalculator\b
+     - (?<=type ).*?\bimages\b
+     - (?<=type ).*?\baudio\b
+     - (?<=type ).*?\bmysql gui\b
+     - (?<=type ).*?\bdeveloper text\b
+     - (?<=type ).*?\birc clients\b
+     - (?<=type ).*?\bgames\b
+     - (?<=type ).*?\bupnp/dlna\b
+     - (?<=type ).*?\bupnp\b
+     - (?<=type ).*?\bdlna\b
+     - (?<=type ).*?\bscientific plotting\b
+     - (?<=type ).*?\bpassword\b
+     - (?<=type ).*?\bweb server\b
+     - (?<=type ).*?\bmongodb gui client\b
+     - (?<=type ).*?\bmobi\b
+#     - (?<=type )(.+)
+
+
+- synonym: edit
+  examples: |
+      - editor
+      - editors
+      - editting
+      - edits
+      - editted
+
+- synonym: convert
+  examples: |
+      - converts
+      - convertor
+      - converted
+      - conversion
+      - converting
+
+- synonym: adjust
+  examples: |
+      - adjusting
+      - adjustment
+      - adjusted
+
+- synonym: map
+  examples: |
+      - mapping
+      - maps
+      - mapped
+      - mapper
+
+- synonym: match
+  examples: |
+      - matching
+      - matches
+      - matched
+      - matcher
+
+- synonym: analyze
+  examples: |
+      - analyzes
+      - analyzer
+      - analyzed
+      - analyzing
+
+- synonym: recover
+  examples: |
+      - recovering
+      - recovers
+      - recovered
+      - recovery
+
+- synonym: generate
+  examples: |
+      - generates
+      - generated
+      - generator
+      - generating
+
+- synonym: view
+  examples: |
+      - views
+      - viewing
+      - viewed
+      - viewer
+
+- synonym: manage
+  examples: |
+      - manages
+      - managed
+      - manager
+      - management
+      - managing
+
+- synonym: watch
+  examples: |
+      - watching
+      - watched
+      - watches
+
+- synonym: recognise
+  examples: |
+      - recognition
+      - recognized
+      - recognises
+      - recognizing
+      - recognizer
+
+- synonym: synchronise
+  examples: |
+      - synchronization
+      - synchronizing
+      - synchronizes
+      - synchronized
+      - synchronizer
+
+- synonym: create
+  examples: |
+      - creates
+      - creation
+      - created
+      - creating
+      - creator
+
+- synonym: diagnose
+  examples: |
+      - diagnosis
+      - diagnostic
+      - diagnoses
+      - diagnosed
+
+- synonym: get
+  examples: |
+      - getting
+      - gets
+      - got
+
+- synonym: remove
+  examples: |
+      - removing
+      - removed
+      - removes
+      - remover
+
+- synonym: see the details
+  examples: |
+      - seeing the details
+
+- synonym: recover
+  examples: |
+      - recovering
+      - recovers
+      - recovered
+      - recovery
+
+- synonym: extract
+  examples: |
+      - extracting
+      - extracted
+      - extracts
+      - extraction
+
+- synonym: cut
+  examples: |
+      - cutting
+      - cuts
+      - cutter
+
+- synonym: crop
+  examples: |
+      - crops
+      - cropped
+      - cropper
+      - cropping
+
+- synonym: play
+  examples: |
+      - plays
+      - played
+      - player
+      - playing
+
+- synonym: monitor
+  examples: |
+      - monitors
+      - monitored
+      - monitoring
+
+- synonym: read
+  examples: |
+      - reading
+      - reads
+      - reader
+
+- synonym: see
+  examples: |
+      - saw
+      - seeing
+      - sees
+
+- intent: shutdown
+  examples: |
+    - [Keyboard](method) shortcut to shutdown?
+    - How to [troubleshoot](verb_details) [slow](details) shutdown?
+    - How can I shutdown the computer when a certain [process](details) [ends](verb_details)?
+    - Ubuntu Shut down [app](method) 
+    - How do I shut down [without](details) the [confirmation prompt](method)? ---  
+    - [No action](details) when shutdown pressed
+    - what is the right way to shutdown ubuntu using the [command line](method)?
+    - How can I make shutdown [not require](verb_details) [admin password](details)? 
+    - shutdown in specific way if [no-one](details) [uses](verb_details) computer
+    - What is the command to [open](verb_details) the [shutdown dialog](method)? -----
+    - How to Shut down Ubuntu by using [keyboard](method)?
+    - shutdown 5:30pm [every day](details)
+    - How can I [automatically](verb_details) shutdown the system after a specific [time](details)? 
+    - Shutdown after a certain [time](details)
+    - shut down [without](details) extra [question](verb_details)
+    - How to shutdown computer when users are [logged on](details)?
+    - What is the proper [terminal](method) -way to shutdown?
+    - [Hotkey](method) to shut down from [login screen](details)?
+    - How to shutdown the computer after [Xsession](details) [ends](verb_details)?
+    - How can one shutdown a PC using the [keyboard](method)?
+    - How can I [enable](verb_details) shutdown [verbosity](method)?
+    - Are there any [Keyboard](method) Shortcuts to Shutdown?
+    - Shutdown [problem](details) in Ubuntu 16.04
+    - How do I fix a shutdown [problem](details)?
+    - What [graphical utility](method) can I use for Ubuntu [auto](verb_details) shutdown?
+    - [reject](details)
+    - [any_way](method)
+    - method i want to use [terminal](method)
+    - method when i am on the [login screen](details)
+    - method no [questions](verb_details)
+    - method when a process [ends](verb_details)
+    - method [ending](verb_details)
+    - method [ended](verb_details)
+    - method when a process [finish](verb_details)
+    - method [finishes](verb_details)
+    - method [finished](verb_details)
+    - method [finishing](verb_details)
+    - method [requires](verb_details)
+    - method without [requiring](verb_details)
+    - method [required](verb_details)
+    - method [requirement](verb_details)
+    - method when no one [uses](verb_details)
+    - method [using](verb_details)
+    - method [used](verb_details)
+    - method [automatic](verb_details) shutdown
+    - method [automatically](verb_details)
+    - method [automate](verb_details)
+    - method [automates](verb_details)
+    - method [automating](verb_details)
+    - method [enabling](verb_details)
+    - method how to [enables](verb_details)
+    - method how to [turn on](verb_details)
+    - method [turning on](verb_details)
+    - method how to [troubleshoots](verb_details)
+    - method [troubleshooting](verb_details)
+    - method how to [opens](verb_details)
+    - method [opening](verb_details)
+    - method [opened](verb_details)
+    - method without any [questions](verb_details)
+    - method [questioning](verb_details)
+    - method [questioned](verb_details)
+    - method using my [keyboard](method)
+    - method using the[command line](method)
+    - method [admin password](method)
+    - method [verbosity](method)
+    - method using the [graphical utility](method)
+    - method using the [terminal](method)
+    - method using a [hotkey](method)
+    - method using an [app](method)
+    - method on the [confirmation prompt](method)
+    - method using the [shutdown dialog](method)
+    - method [slow](method)
+    - method [process](method)
+    - method [confirmation prompt](method)
+    - method [no action](method)
+    - method [admin password](method)
+    - method [no-one](method)
+    - method [everyday](method)
+    - method [time](method)
+    - method [without](method)
+    - method [logged on](method)
+    - method [login screen](method)
+    - method [xsession](method)
+    - method [problem](method)
+#    - [any_way](method)
+#    - [that is all](details)
+#    - details [problem](details)
+#    - details [login screen](details)
+#    - details [logged on](details)
+#    - details [process](details)
+#    - details [app](details)
+#    - details [no-one](details)
+#    - details [without](details)
+#    - details [no action](details)
+
+- regex: method
+  examples: |
+     - any_way
+     - (?<=method ).*?\bkeyboard\b
+     - (?<=method ).*?\bcommand line\b
+     - (?<=method ).*?\badmin password\b
+     - (?<=method ).*?\bverbosity\b
+     - (?<=method ).*?\bgraphical utility\b
+     - (?<=method ).*?\bterminal\b
+     - (?<=method ).*?\bhotkey\b
+     - (?<=method ).*?\bapp\b
+     - (?<=method ).*?\bconfirmation prompt\b
+     - (?<=method ).*?\bshutdown dialog\b
+     
+#          - (?<=method )(.+)
+#     - keyboard
+#     - command line
+#     - admin password
+#     - verbosity
+#     - graphical utility
+#     - terminal
+#     - hotkey
+#     - app
+#     - shutdown dialog
+#     - method (\w+)
+
+- regex: details
+  examples: |
+     - reject
+     - (?<=method ).*?\bslow\b
+     - (?<=method ).*?\bprocess\b
+     - (?<=method ).*?\bconfirmation prompt\b
+     - (?<=method ).*?\no action\b
+     - (?<=method ).*?\badmin password\b
+     - (?<=method ).*?\bno-one\b
+     - (?<=method ).*?\beveryday\b
+     - (?<=method ).*?\btime\b
+     - (?<=method ).*?\bwithout\b
+     - (?<=method ).*?\blogged on\b
+     - (?<=method ).*?\blogin screen\b
+     - (?<=method ).*?\bxsession\b
+     - (?<=method ).*?\bproblem\b
+#     - (?<=details )(.+)
+
+- regex: verb_details
+  examples: |
+     - (?<=method ).*?\btroubleshoot\b
+     - (?<=method ).*?\bend\b
+     - (?<=method ).*?\bnot require\b
+     - (?<=method ).*?\buse\b
+     - (?<=method ).*?\bopen\b
+     - (?<=method ).*?\bauto\b
+     - (?<=method ).*?\bquestion\b
+     - (?<=method ).*?\benable\b
+
+- synonym: end
+  examples: |
+      - ends
+      - ending
+      - ended
+      - finish
+      - finishes
+      - finished
+      - finishing
+
+- synonym: require
+  examples: |
+      - requires
+      - requiring
+      - required
+      - requirement
+
+- synonym: use
+  examples: |
+      - uses
+      - using
+      - used
+
+- synonym: auto
+  examples: |
+      - automatic
+      - automatically
+      - automate
+      - automates
+      - automating
+
+- synonym: enable
+  examples: |
+      - enabling
+      - enables
+      - turn on
+      - turning on
+
+- synonym: troubleshoot
+  examples: |
+      - troubleshoots
+      - troubleshooting
+
+- synonym: open
+  examples: |
+      - opens
+      - opening
+      - opened
+
+- synonym: question
+  examples: |
+      - questions
+      - questioning
+      - questioned
+
+
+
+
+
+
+
+
+

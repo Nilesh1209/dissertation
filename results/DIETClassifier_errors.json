@@ -1,0 +1,110 @@
+[
+  {
+    "text": "Is it recommended to upgrade to Lubuntu 15.04?",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "upgrade_to",
+        "start": 32,
+        "end": 39,
+        "confidence_entity": 0.8254573345184326,
+        "value": "Lubuntu",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "upgrade_to",
+        "start": 40,
+        "end": 45,
+        "confidence_entity": 0.6937047839164734,
+        "value": "15.04",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "On really old Ubuntu 6.06 - How to upgrade",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "ubuntu_version",
+        "start": 21,
+        "end": 25,
+        "confidence_entity": 0.8623167872428894,
+        "value": "6.06",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "method How do I schedule an automatic shutdown on Ubuntu?",
+    "entities": [
+      {
+        "start": 38,
+        "end": 46,
+        "value": "shutdown",
+        "entity": "method"
+      },
+      {
+        "start": 50,
+        "end": 56,
+        "value": "Ubuntu",
+        "entity": "os_version"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "verb_details",
+        "start": 16,
+        "end": 24,
+        "confidence_entity": 0.5590775012969971,
+        "value": "schedule",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "method",
+        "start": 38,
+        "end": 46,
+        "confidence_entity": 0.8722599744796753,
+        "value": "shutdown",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "os_version",
+        "start": 50,
+        "end": 56,
+        "confidence_entity": 0.9628128409385681,
+        "value": "Ubuntu",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "method How do I troubleshoot slow shutdown?",
+    "entities": [
+      {
+        "start": 29,
+        "end": 33,
+        "value": "slow",
+        "entity": "details"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "verb_details",
+        "start": 16,
+        "end": 28,
+        "confidence_entity": 0.6467269062995911,
+        "value": "troubleshoot",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "details",
+        "start": 29,
+        "end": 33,
+        "confidence_entity": 0.9995315074920654,
+        "value": "slow",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]

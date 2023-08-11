@@ -1,0 +1,307 @@
+utter lexmark z600:
+
+text: '<a href="http://ubuntuforums.org/showthread.php?t=49714&amp;page=70">HOWTO: Lexmark Printers Page 69 post 68 by VietCanada this worked!.</a>
+<br><br>
+install libstdc++5 from synaptic.
+<br>install <a href="http://www.4shared.com/file/WizxlgkB/getlibs-all.html">getlibs-all.deb</a>.
+<br>install <a href="https://help.ubuntu.com/community/HardwareSupportComponentsPrinters/LexmarkPrinters?action=AttachFile&amp;do=get&amp;target=lexmark.z600-0.4.deb">lexmark.z600-0.4.deb</a>.
+<br>go to
+<br>System/Administration/Printing.
+<br>choose Lexmark z600 printer
+<br><br>
+Only seems to work for 64 bit though, on a 32 bit Ubuntu 11.04 Install, the package <em>lexmark.z600-0.4.deb</em> can't be installed due to a missing dependency libcupsys2 which I can't install.'
+utter lexmark x4690/12.04:
+
+text: 'It is working now. See the link:
+<a href="http://askubuntu.com/questions/130516/how-do-i-install-drivers-for-a-lexmark-x6675-printer">How do I install drivers for a Lexmark X6675 Printer?</a>
+or download the file directly:
+<a href="http://www.mediafire.com/?yowom7gh6vg4fzl">http://www.mediafire.com/?yowom7gh6vg4fzl</a>'
+utter dj3630:
+
+text: 'Under Ubuntu the needed drivers can be downloaded from HPLIP web site.
+<a href="http://sourceforge.net/projects/hplip/files/hplip/3.15.11/hplip-3.15.11.run/download?use_mirror=ufpr">http://sourceforge.net/projects/hplip/files/hplip/3.15.11/hplip-3.15.11.run/download?use_mirror=ufpr</a>
+The downloaded files can be installed with sudo command:
+<br><code>sudo -i
+<br>sh hplip-3.15.11.run
+<br>hp-setup</code>
+<br>The scanner can be used together with XSane, which can be installed by:
+<br><code>sudo -i
+<br>apt-get update
+<br>apt-get install xsane
+<br>hp-scan</code>
+<br>After placing a sheet of paper on the scan unit and pressing the scan button on the printer, a file <code>hpscan001.png</code> is created in the home directory.'
+utter hp f4280:
+
+text: 'I have an HP F4280 too and it works out of the box with 9.10, 10.04, and 10.10. Just "start it up and plug it in"... prints beautiful and scans great with XSane and SimpleScan.'
+
+utter hp c4140:
+
+text: 'To upgrade hplib run <code>sudo hp-upgrade</code>.
+<br>You can also use <code>sudo hp-setup</code> to install the drivers for a HP printer and to set it up - this approach is easier when you need to install drivers for a HP printer again in the future.'
+utter hp laserjet-1020/15.04:
+
+text: 'It seems that this URL (<a href="https://mark911.wordpress.com/2014/10/31/how-to-install-printer-drivers-for-hp-laserjet-1020-in-ubuntu-14-04-lts-without-needing-access-to-openprinting-org-website/">https://mark911.wordpress.com/2014/10/31/how-to-install-printer-drivers-for-hp-laserjet-1020-in-ubuntu-14-04-lts-without-needing-access-to-openprinting-org-website/</a>) solves the issue. The printer return to life and I was able to print test page.
+<br>Namely, HPLIP is buggy and we should not use it. Instead we should use CUPS via foo2zjs.
+<br>I will give this a good test over the next few days and weeks and will update the answer if this solution is not long term.'
+utter hp:
+
+text: 'Ok, i have found an answer for my question. So i'm posting it here, in hopes that it will be useful for another person:
+<br>For whatever bizaar reason the graphical interface of <code>hp-setup</code> is busted. So one needs to start:
+<br><code>sudo hp-setup -i</code>
+<br>The <code>-i</code> key is essential, because without it the setup doesn't proceed either. At this time i still haven't gotten the test page out, but the scanner is working properly, which is what i was needing originally.'
+utter network/15.10:
+
+text: 'I solved the same problem by installing <code>hplip</code> manually. Run:
+<br><code>sudo apt-get install hplip</code>
+<br>and then run:
+<br><code>hp-setup</code>
+<br>which will open a GUI where you can search/add your printer.
+<br><a href="https://i.stack.imgur.com/gSSpx.png"><img src="https://i.stack.imgur.com/gSSpx.png" alt="enter image description here"></a>
+<br>You could also directly install the GUI by:
+<br><code>sudo apt-get install hplip-gui</code>
+<br>Run it from dash and follow the directions.
+<br><a href="https://i.stack.imgur.com/xB92G.png"><img src="https://i.stack.imgur.com/xB92G.png" alt="enter image description here"></a>'
+utter epson l210:
+
+text: 'This should be fixed by running in terminal
+<br><code>sudo apt-get install -f</code>
+<br>If you installed drivers from Epson site, they require some other packages to be installed too. But the problem is that 13.10 is not supported any more, and you won't get these packages from repository.
+<br>There is a way to connect "old-releases" repository, but I suggest upgrading the system to 14.04.
+<br>This will be closed as off topic anyway, since the question is about unsupported release.'
+
+text: 'There's a longish article at <a href="http://printersquestions.com/How-to-install-Dell-2150cdn-on-Ubuntu.html">How to install Dell 2150cdn on Ubuntu</a>, but it seems more like something written for an internal user at a corporation. However, they did seem to get your printer running, so there's hope!'
+utter epson xp-424:
+
+text: 'There is a specific driver for your printer. They are available on the <a href="https://www.epson.com/cgi-bin/Store/support/supDetail.jsp?oid=266642&amp;infoType=Downloads&amp;platform=OSF_O_LINUX">Epson website</a>. To use them, you will need to install a specific package as mentioned in the Epson downloads:
+<code>sudo apt-get install lsb</code>
+The specific package that you need to download depends on your version of Ubuntu. If you are running a 32-bit Ubuntu, download <code>epson-inkjet-printer-escpr_1.6.2-1lsb3.2_i386.deb</code>
+And if you are running 64-bit Ubuntu, download <code>epson-inkjet-printer-escpr_1.6.2-1lsb3.2_amd64.deb</code>
+These files can be opened using the Ubuntu Software Center by double-clicking on them or installed from the command line by the command
+<code>sudo dpkg -i epson-inkjet-printer-escpr_1.6.2-1lsb3.2_amd64.deb</code>'
+utter epson l355/14.04:
+
+text: 'OP accidentally tried to install 32-bit driver while using a 64-bit OS.
+<a href="http://download.ebz.epson.net/dsc/op/stable/debian/dists/lsb3.2/main/binary-i386/epson-inkjet-printer-201207w_1.0.0-1lsb3.2_i386.deb">32-bit driver</a>
+<a href="http://download.ebz.epson.net/dsc/op/stable/debian/dists/lsb3.2/main/binary-amd64/epson-inkjet-printer-201207w_1.0.0-1lsb3.2_amd64.deb">64-bit driver</a>
+OP installed the 64-bit driver, and all was resolved.'
+
+utter canon mf8000c/15.10:
+
+text: 'There is a bug in the latest kernels (<a href="https://bugs.launchpad.net/ubuntu/+source/linux-lts-utopic/+bug/1507863">https://bugs.launchpad.net/ubuntu/+source/linux-lts-utopic/+bug/1507863</a>) that prevents Canon printers from working over a LAN. The symptoms are just what you describe. Try rolling back to an older kernel.'
+utter canon lbp330/Lts 16.04:
+
+text: 'Try the following:
+sudo add-apt-repository ppa:michael-gruz/canon
+sudo apt-get update
+sudo apt-get install cnijfilter-ip3300series
+Official <a href="http://ubuntuportal.com/2011/12/how-to-install-canon-printer-driver-for-linux-ubuntu.html">page</a>
+Any difficulties try this question <a href="http://askubuntu.com/questions/463289/cant-get-my-canon-lbp-printer-to-run-under-ubuntu-14-04">here</a>. Hope it helps.'
+
+utter pantum 250w:
+
+text: 'I found the driver "Pantum P2200-P2500 Series Linux Driver ZIP 2014-5-20 1.10" on the manufacturers page <a href="http://global.pantum.com/global/index.php?option=com_virtuemart&amp;view=supportdetails&amp;pid=33&amp;Itemid=108">here</a>
+Downloaded and extracted the contents to my desktop with Archive manager (aka file-roller)
+While the archive includes an installation script it fails even after adjusting permissions to make it executable so we navigate to the Resources folder, select the appropriate deb file (in my case i386)
+<img src="https://i.stack.imgur.com/kJec4.png" alt="driver">
+and install it with Software Center acknowledging the warning and continuing to install.
+<img src="https://i.stack.imgur.com/DSGWh.png" alt="SoftCent">
+Now open the printers application and choose Add. You should see an option like this: <img src="https://i.stack.imgur.com/Hd1sM.png" alt="addingpantum">
+Choose Forward, edit details if necessary, then click print test page
+<img src="https://i.stack.imgur.com/eVKhN.png" alt="finishing">
+Congratulations! You've just installed the P2502W laser printer under Ubuntu 14.04.'
+
+
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+utter canon mp560/15.04:
+- text: '<p>Ubuntu 15.04 seems to be not supported by this PPA – the latest change was from 2014-06-23.</p>
+<p>But you can download the matching packages from launchpad and try to install them manually.</p>
+<p>As there seems to be no native 64 bit drivers support, you need to add the 32 bit architecture:</p>
+<code>sudo dpkg --add-architecture i386
+sudo apt-get update</code>
+<p>Download and install the driver for Canon PIXMA MP560 printer - printing functionality:</p>
+<code>wget https://launchpad.net/~michael-gruz/+archive/ubuntu/canon-trunk/+files/cnijfilter-common-32_3.90-76~ubuntu14.04.1_amd64.deb
+sudo dpkg -i cnijfilter-common-32_3.90-76~ubuntu14.04.1_amd64.deb
+wget https://launchpad.net/~michael-gruz/+archive/ubuntu/canon-trunk/+files/cnijfilter-mp560series-32_3.90-76~ubuntu14.04.1_amd64.deb
+sudo dpkg -i cnijfilter-mp560series-32_3.90-76~ubuntu14.04.1_amd64.deb</code>
+<p>Download and install the driver for Canon PIXMA MP560 printer - scanning functionality:</p>
+<code>wget https://launchpad.net/~michael-gruz/+archive/ubuntu/canon-trunk/+files/scangearmp-common-32_2.10-33~precise1_amd64.deb
+sudo dpkg -i scangearmp-common-32_2.10-33~precise1_amd64.deb
+wget https://launchpad.net/~michael-gruz/+archive/ubuntu/canon-trunk/+files/scangearmp-mp560series-32_2.10-33~precise1_amd64.deb
+sudo dpkg -i scangearmp-mp560series-32_2.10-33~precise1_amd64.deb</code>
+<p>Alternatively, download the original drivers from Canon Asia website and install them manually:</p>
+<p>Canon MP560 series IJ Printer Driver Version 3.20 for Linux (debian package archive)</p>
+<p>Download location: <a href="http://support-asia.canon-asia.com/contents/ASIA/EN/0100236502.html">http://support-asia.canon-asia.com/contents/ASIA/EN/0100236502.html</a></p>
+<p>Extract the archive and install the packages by executing:</p>
+<code>sudo dpkg -i cnijfilter-common_3.20-1_i386.deb
+sudo dpkg -i cnijfilter-mp560series_3.20-1_i386.deb</code>
+<p>Canon MP560 series ScanGear MP Version 1.40 for Linux (debian package archive)</p>
+<p>Download location: <a href="http://support-asia.canon-asia.com/contents/ASIA/EN/0100237802.html">http://support-asia.canon-asia.com/contents/ASIA/EN/0100237802.html</a></p>
+<p>Extract the archive and install the packages by executing:</p>
+<code>sudo dpkg -i scangearmp-common_1.40-1_i386.deb
+sudo dpkg -i scangearmp-mp560series_1.40-1_i386.deb</code>
+<p>Sometimes it even works to select another printer from Printers setup in System Settings.</p>'
+ 
+utter brother mfc-5890cn:
+- text: '<p>Brother has fantastic compatibility with Linux drivers. There are three ways to install a printer:</p>
+<p>Local Printer:</p>
+<p>In the principal page, you can see a how-to:</p>
+<p>Instruction Printer (CUPS): <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/instruction_prn1.html">Driver Install</a> | <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/instruction_prn2.html">Print Command</a> | <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/instruction_prn5.html">More Information</a></p>
+<p>Instruction Printer (LPR): <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/instruction_prn3.html">Driver Install</a> | <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/instruction_prn4.html">Print Command</a> | <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/instruction_prn6.html">More Information</a></p>
+<p>Go to this page: <a href="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html#MFC-5890CN">http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html#MFC-5890CN</a></p>
+<p>Download LPR and cupswrapper driver available in .DEB format and install it, following the Brother instruction.</p>
+<p>Setup a Standalone Network Printer or Setup a Shared Windows Printer:</p>
+<p>Follow this <a href="http://www.liberiangeek.net/2011/10/first-30-days-with-ubuntu-11-10-oneiric-ocelotday-four/">guide</a></p>'
+ 
+utter konica minolta 200:
+- text: '<p>I asked Konica Minolta Tech support (in Spanish) about this, and they answered me with this:</p>
+<p><a href="https://www.dropbox.com/s/fticrycjyxlp8n2/423_Series_Linux_v10000.zip">https://www.dropbox.com/s/fticrycjyxlp8n2/423_Series_Linux_v10000.zip</a></p>
+<p>The ppd file I must specify is KO423SX.ppd</p>
+<p>To install, add a printer and specify a URI such as lpd://192.168.1.40/print (replacing 192.168.1.40 with your printer's IP address).</p>
+<p>Then specify the KO423SX.ppd file as the ppd file.</p>
+<p>Adjust settings and print. In my case, it claims there's no paper in the printer but still prints correctly.</p>'
+
+utter panasonic mb1900cx:
+  - text: '<h3>1. Installing the 64-bit printer driver:</h3>
+    <p>You can download it from <a href="http://panasonic.net/pcc/support/fax/common/table/linuxdriver.html">the Panasonic webpage</a> you linked. Here's how to install the 64-bit driver:</p>
+    <p>Open a terminal with <code>Ctrl+Alt+T</code>, and type/paste the following line-by-line:</p>
+    <pre>wget -O- http://cs.psn-web.net/support/fax/common/file/Linux_PrnDriver/Driver_Install_files/mccgdi-2.0.3-x86_64.tar.gz | tar -xz
+    cd mccgdi-2.0.3-x86_64
+    sudo ./install-driver</pre>
+    <p>You should see output like the below, after which the driver will be installed. Once it's working, you can remove the <code>mccgdi...</code> folder from Nautilus.</p>
+    <pre>start  install......
+    start install files......
+    restart spooler - CUPS<br>
+    Rather than invoking init scripts through /etc/init.d, use the service(8)
+    utility, e.g. service cups restart<br>
+    Since the script you are attempting to invoke has been converted to an
+    Upstart job, you may also use the stop(8) and then start(8) utilities,
+    e.g. stop cups ; start cups. The restart(8) utility is also available.
+    cups stop/waiting
+    cups start/running, process 2824<br>
+    install driver completed<br>
+    please use "system-config-printer" or "lpadmin" to add printer</pre>
+    <h3>2. Installing the 32-bit scanner driver on 64-bit Ubuntu</h3>
+    <p>There is no guarantee this will actually work, since I don't have a MB1900CX to test it...</p>
+    <p>You have already installed <code>ia32-libs</code> so you shouldn't need the following, but if <code>dpkg</code> complains trying to install the scanner drivers, you should do the following in a terminal:</p>
+    <pre>sudo apt-get install gcc-4.6-base:i386 libc6:i386 libgcc1:i386 libusb-0.1-4:i386</pre>
+    <p>Download the 32-bit Panasonic <em>libsane</em> driver with:</p>
+    <pre>wget http://cs.psn-web.net/support/fax/common/file/Linux_ScanDriver/libsane-panamfs-1.0.0-i386.deb</pre>
+    <p>And install it with:</p>
+    <pre>sudo dpkg -i libsane-panamfs-1.0.0-i386.deb</pre>
+    <p>If all goes well, you will see output like the below, and your scanner functions should also work:</p>
+    <pre>Selecting previously unselected package libsane-panamfs:i386.
+    (Reading database ... 150731 files and directories currently installed.)
+    Unpacking libsane-panamfs:i386 (from libsane-panamfs-1.0.0-i386.deb) ...
+    Setting up libsane-panamfs:i386 (1.0.0-2) ...</pre>'
+
+utter canon lbp2900b/14.04 LTS:
+  - text: '<p>Open printers:</p>
+    <img src="https://i.stack.imgur.com/AbtzI.png" alt="Openprinters">
+    <p>Click Add</p>
+    <img src="https://i.stack.imgur.com/xPov6.png" alt="Add printer">
+    <p>Choose your printer from the list or enter the URI (the list should populate with detected printers provided you\'ve followed the instructions in the community wiki about setting up CUPS)</p>
+    <img src="https://i.stack.imgur.com/0IUAA.png" alt="New printer">
+    <p>This is what I get as I print over the network:</p>
+    <img src="https://i.stack.imgur.com/32ZtF.png" alt="pop-printers">
+    <p>Next, you\'ll choose the driver to use for me Brother is recommended, yours will be Canon.</p>
+    <p>If you have a PPD file, you can choose it here, if not, try to choose your printer from the database by selecting Canon here</p>
+    <img src="https://i.stack.imgur.com/baqjv.png" alt="driver">
+    <p>If you don\'t find your model listed here, hit the back button and try searching for a driver to download above.</p>
+    <img src="https://i.stack.imgur.com/xoaYP.png" alt="Canon">
+    <p>Once you\'ve found your model listed, select it and move forward.</p>
+    <p>You\'ll be asked to identify your printer here:</p>
+    <img src="https://i.stack.imgur.com/OYphS.png" alt="identify">
+    <p>Do so and then click apply. Now print a test page to ensure everything is working properly:</p>
+    <img src="https://i.stack.imgur.com/Ce8rq.png" alt="test page">
+    <p>If it prints, congratulations, you\'re done! If not, right-click on the printer and ensure that Enabled is checked (it should be)</p>
+    <img src="https://i.stack.imgur.com/frng0.png" alt="enabled">
+    <p>If you right-click on the printer and choose properties, you\'ll get something like this (your URI and driver will be different):</p>
+    <img src="https://i.stack.imgur.com/zn09K.png" alt="props">
+    <p>You should ensure that these settings make sense if you can\'t print. If you have the wrong driver and everything else is correct, you\'ll usually get something from the printer (garbled output, page feed, etc.)</p>'
+
+utter lexmark z600:
+  - text: '<a href="http://ubuntuforums.org/showthread.php?t=49714&amp;page=70">HOWTO: Lexmark Printers Page 69 post 68 by VietCanada this worked!.</a>
+    <p>Install libstdc++5 from synaptic.</p>
+    <p>Install <a href="http://www.4shared.com/file/WizxlgkB/getlibs-all.html">getlibs-all.deb</a>.</p>
+    <p>Install <a href="https://help.ubuntu.com/community/HardwareSupportComponentsPrinters/LexmarkPrinters?action=AttachFile&amp;do=get&amp;target=lexmark.z600-0.4.deb">lexmark.z600-0.4.deb</a>.</p>
+    <p>Go to System/Administration/Printing.</p>
+    <p>Choose Lexmark z600 printer.</p>
+    <p>Only seems to work for 64 bit though, on a 32 bit Ubuntu 11.04 Install, the package <em>lexmark.z600-0.4.deb</em> can\'t be installed due to a missing dependency libcupsys2 which I can\'t install.</p>'
+
+utter lexmark x4690/12.04:
+  - text: 'It is working now. See the link:
+    <a href="http://askubuntu.com/questions/130516/how-do-i-install-drivers-for-a-lexmark-x6675-printer">How do I install drivers for a Lexmark X6675 Printer?</a>
+    or download the file directly:
+    <a href="http://www.mediafire.com/?yowom7gh6vg4fzl">http://www.mediafire.com/?yowom7gh6vg4fzl</a>'
+
+utter dj3630:
+  - text: 'Under Ubuntu, the needed drivers can be downloaded from HPLIP web site.
+    <a href="http://sourceforge.net/projects/hplip/files/hplip/3.15.11/hplip-3.15.11.run/download?use_mirror=ufpr">http://sourceforge.net/projects/hplip/files/hplip/3.15.11/hplip-3.15.11.run/download?use_mirror=ufpr</a>
+    The downloaded files can be installed with sudo command:
+    <pre>sudo -i
+    sh hplip-3.15.11.run
+    hp-setup</pre>
+    The scanner can be used together with XSane, which can be installed by:
+    <pre>sudo -i
+    apt-get update
+    apt-get install xsane
+    hp-scan</pre>
+    After placing a sheet of paper on the scan unit and pressing the scan button on the printer, a file <code>hpscan001.png</code> is created in the home directory.'
+
+utter hp f4280:
+  - text: 'I have an HP F4280 too and it works out of the box with 9.10, 10.04, and 10.10. Just "start it up and plug it in"... prints beautiful and scans great with XSane and SimpleScan.'
+
+utter hp c4140:
+  - text: 'To upgrade hplib run <code>sudo hp-upgrade</code>.
+    You can also use <code>sudo hp-setup</code> to install the drivers for an HP printer and to set it up - this approach is easier when you need to install drivers for an HP printer again in the future.'
+
+utter hp laserjet-1020/15.04:
+  - text: 'It seems that this URL (<a href="https://mark911.wordpress.com/2014/10/31/how-to-install-printer-drivers-for-hp-laserjet-1020-in-ubuntu-14-04-lts-without-needing-access-to-openprinting-org-website">https://mark911.wordpress.com/2014/10/31/how-to-install-printer-drivers-for-hp-laserjet-1020-in-ubuntu-14-04-lts-without-needing-access-to-openprinting-org-website</a>) solves the issue. The printer returns to life, and I was able to print a test page.
+    Namely, HPLIP is buggy, and we should not use it. Instead, we should use CUPS via foo2zjs.
+    I will give this a good test over the next few days and weeks and will update the answer if this solution is not long term.'
+
+utter hp:
+  - text: 'Ok, I have found an answer for my question. So I'm posting it here, in hopes that it will be useful for another person:
+    For whatever bizarre reason the graphical interface of <code>hp-setup</code> is busted. So one needs to start:
+    <code>sudo hp-setup -i</code>
+    The <code>-i</code> key is essential because without it the setup doesn't proceed either. At this time, I still haven't gotten the test page out, but the scanner is working properly, which is what I was needing originally.'
+
+utter network/15.10:
+  - text: 'I solved the same problem by installing <code>hplip</code> manually. Run:
+    <code>sudo apt-get install hplip</code>
+    and then run:
+    <code>hp-setup</code>
+    which will open a GUI where you can search/add your printer.
+    <img src="https://i.stack.imgur.com/gSSpx.png" alt="enter image description here">
+    You could also directly install the GUI by:
+    <code>sudo apt-get install hplip-gui</code>
+    Run it from dash and follow the directions.
+    <img src="https://i.stack.imgur.com/xB92G.png" alt="enter image description here">'
+
+utter epson l210:
+  - text: 'This should be fixed by running in the terminal:
+    <code>sudo apt-get install -f</code>
+    If you installed drivers from the Epson site, they require some other packages to be installed too. But the problem is that 13.10 is not supported anymore, and you won't get these packages from the repository.
+    There is a way to connect the "old-releases" repository, but I suggest upgrading the system to 14.04.
+    This will be closed as off-topic anyway since the question is about an unsupported release.'
+
+utter dell 2150cdn:
+  - text: 'There's a longish article at <a href="http://printersquestions.com/How-to-install-Dell-2150cdn-on-Ubuntu.html">How to install Dell 2150cdn on Ubuntu</a>, but it seems more like something written for an internal user at a corporation. However, they did seem to get your printer running, so there's hope!'
+
+utter epson xp-424:
+  - text: 'There is a specific driver for your printer. They are available on the <a href="https://www.epson.com/cgi-bin/Store/support/supDetail.jsp?oid=266642&amp;infoType=Downloads&amp;platform=OSF_O_LINUX">Epson website</a>. To use them, you will need to install a specific package as mentioned in the Epson downloads:
+    <code>sudo apt-get install lsb</code>
+    The specific package that you need to download depends on your version of Ubuntu. If you are running a 32-bit Ubuntu, download <code>epson-inkjet-printer-escpr_1.6.2-1lsb3.2_i386.deb</code>,
+    And if you are running 64-bit Ubuntu, download <code>epson-inkjet-printer-escpr_1.6.2-1lsb3.2_amd64.deb</code>.
+    These files can be opened using the Ubuntu Software Center by double-clicking on them or installed from the command line by the command:
+    <code>sudo dpkg -i epson-inkjet-printer-escpr_1.6.2-1lsb3.2_amd64.deb</code>'
+
+utter epson l355/14.04:
+  - text: 'OP accidentally tried to install the 32-bit driver while using a 64-bit OS.
+    <a href="http://download.ebz.epson.net/dsc/op/stable/debian/dists/lsb3.2/main/binary-i386/epson-inkjet-printer-201207w_1.0.0-1lsb3.2_i386.deb">32-bit driver</a>
+    <a href="http://download.ebz.epson.net/dsc/op/stable/debian/dists/lsb3.2/main/binary-amd64/epson-inkjet-printer-201207w_1.0.0-1lsb3.2_amd64.deb">64-bit driver</a>
+    OP installed the 64-bit driver, and all was resolved.'

@@ -1,0 +1,431 @@
+version: "3.1"
+
+nlu:
+- intent: upgrade
+  examples: |
+    - ubuntu_version My current version is [12.04](ubuntu_version), and I want to upgrade to the latest version.
+    - ubuntu_version I'm on [14.04](ubuntu_version) and considering a system upgrade to a newer release.
+    - ubuntu_version Can I directly upgrade from [16.04](ubuntu_version) to a newer version?
+    - ubuntu_version I have [20.10](ubuntu_version) installed. Is it safe to upgrade now?
+    - ubuntu_version I'm currently running [18.10](ubuntu_version) and thinking about upgrading.
+    - ubuntu_version How can I upgrade my Ubuntu from [15.04](ubuntu_version) to the latest version available?
+    - ubuntu_version My current Ubuntu version is [19.10](ubuntu_version), and I'm contemplating an upgrade.
+    - ubuntu_version I have [18.04](ubuntu_version) installed. Is it a good time to upgrade?
+    - ubuntu_version Is it possible to upgrade from [21.04](ubuntu_version) to a newer version?
+    - ubuntu_version I'm running [14.10](ubuntu_version) and want to upgrade to a newer release.
+    - ubuntu_version How do I upgrade my Ubuntu from [13.10](ubuntu_version) to the latest version?
+    - ubuntu_version Is there any benefit to upgrading from [15.10](ubuntu_version) to a newer release?
+    - ubuntu_version I'm using Ubuntu [13.10](ubuntu_version) and considering upgrading.
+    - ubuntu_version Can I upgrade my Ubuntu [12.10](ubuntu_version) to a newer version without losing data?
+    - ubuntu_version My current version is [17.10](ubuntu_version), and I want to upgrade.
+    - ubuntu_version I have Ubuntu [14.04](ubuntu_version) installed, but I want to upgrade.
+    - ubuntu_version How do I upgrade my Ubuntu from [10.04](ubuntu_version) to a newer version?
+    - ubuntu_version I want to upgrade from [13.04](ubuntu_version) to the latest stable release.
+    - ubuntu_version I'm considering upgrading from [12.04](ubuntu_version).
+    - ubuntu_version What are the new features in the latest [20.04](ubuntu_version) release, and how do I upgrade?
+    - ubuntu_version I'm currently using [11.04](ubuntu_version) and need to upgrade to a more recent version.
+    - ubuntu_version Is it possible to upgrade from [16.04](ubuntu_version) to a newer version directly without any issues?
+    - ubuntu_version I have Ubuntu [19.10](ubuntu_version) installed.
+    - ubuntu_version How do I upgrade from [17.04](ubuntu_version)
+    - ubuntu_version My current version is [12.04](ubuntu_version). Can I upgrade to a newer release?
+    - ubuntu_version Is it safe to upgrade from [18.04](ubuntu_version)
+    - ubuntu_version I want to upgrade my Ubuntu [14.04](ubuntu_version) system. What's the process?
+    - ubuntu_version I'm using Ubuntu [16.04](ubuntu_version). Is it time to upgrade to a newer version?
+    - ubuntu_version Can I upgrade my Ubuntu [20.04](ubuntu_version) to the latest version available?
+    - upgrade_to I want to upgrade to [12.00 64bit](upgrade_to).
+    - upgrade_to I want to move to [14.04.1 LTS](upgrade_to).
+    - upgrade_to I'm interested in upgrading to Ubuntu version [12.04](upgrade_to).
+    - upgrade_to I'm looking to update my current Ubuntu installation to version [12.04](upgrade_to).
+    - upgrade_to I want to upgrade my Ubuntu system to the [12.04 Beta](upgrade_to) version.
+    - upgrade_to Is it possible to update to Ubuntu [12.04 LTS](upgrade_to) from my current version?
+    - upgrade_to I'm considering updating my Ubuntu to version [12.04.01 Lts](upgrade_to), how can I do that?
+    - upgrade_to I'm thinking about upgrading my Ubuntu installation to [12.04.01](upgrade_to), any advice on how to proceed?
+    - upgrade_to Can you guide me through the process of updating my Ubuntu to version [12.04.03 64bit](upgrade_to)?
+    - upgrade_to I've decided to update my Ubuntu to version [12.04.04 Beta](upgrade_to), what are the steps I need to follow?
+    - upgrade_to I'm planning to upgrade my Ubuntu to [12.04 64bit](upgrade_to), is there any specific procedure I should follow?
+    - upgrade_to I want to bring my Ubuntu installation up to date with version [12.04 32bit](upgrade_to), what's the best way to accomplish that?
+    - upgrade_to I'm considering upgrading to the latest [20.04 LTS](upgrade_to) release.
+    - upgrade_to How do I upgrade from my current version to [18.04](upgrade_to)?
+    - upgrade_to I want to perform a system upgrade to [16.04](upgrade_to) LTS.
+    - [Doubts](other_details) regarding the [15.04](upgrade_to) upgrade (is it inevitable and unavoidable?)
+    - Is any [offline](other_details) upgrade from [13.10](ubuntu_version) to [14.04](upgrade_to) possible?
+    - Upgrading from ubuntu [12.04](ubuntu_version) to [13.10](upgrade_to)
+    - Ubuntu upgrade [failed](other_details)
+    - Upgrading from [12.04](ubuntu_version) to [13.10](upgrade_to) ( Unanswered questions )
+    - upgrading to Ubuntu [13.10](upgrade_to) from Ubuntu [13.04](ubuntu_version)
+    - [Force](other_details) upgrade [12.10](ubuntu_version) to [13.04](upgrade_to)
+    - How to [partially](other_details) upgrade to Ubuntu [11.10](upgrade_to) from Ubuntu [11.04](ubuntu_version)?
+    - [Problem](other_details) upgrading to Ubuntu [9.10](upgrade_to)
+    - Is it [necessary](other_details) to upgrade to [15.10](upgrade_to) from [14.04](ubuntu_version)?
+    - How do I update from Ubuntu [11.10](ubuntu_version) to ubuntu [12.04 LTS](upgrade_to)?
+    - Why did the upgrade from [11.10](ubuntu_version) to [12.04](upgrade_to) [ruin](other_details) my system?
+    - [Problem](other_details) upgrading from [12.04](ubuntu_version) to [14.04](upgrade_to)
+    - [Problem](other_details) upgrading Ubuntu [12.10](ubuntu_version) to [13.04](upgrade_to)
+    - Upgrade from [12.04](ubuntu_version) to [12.10](upgrade_to) [without losing files](other_details)?
+    - Do I need to [uninstall](other_details) [10.04](ubuntu_version) to upgrade to [12.04](upgrade_to)?
+    - Do I need to [reinstall](other_details) everything to upgrade from [13.10](ubuntu_version) to [14.10](upgrade_to)?
+    - upgrade to [15.04](upgrade_to) rather than [16.04](upgrade_to)
+    - Upgrading [16.04](ubuntu_version) to [16.04.1](upgrade_to)
+    - Upgrading Ubuntu Server [9.10](ubuntu_version) to [10.04](upgrade_to)
+    - Ho do I update to [13.04](upgrade_to) from the [beta](ubuntu_version)?
+    - How to upgrade from [12.10](ubuntu_version) to [14.04](upgrade_to)
+    - Upgrading from [10.10](ubuntu_version) to [11.04](upgrade_to) how much [space](other_details) is needed?
+    - Do I need to [backup](other_details) my [12.04](ubuntu_version) system to upgrade to [12.04.1](upgrade_to)?
+    - Cannot upgrade from [12.04 LTS](ubuntu_version) to [14.04](upgrade_to)
+    - Upgrade [10.10](ubuntu_version) to [11.04](upgrade_to)
+    - How to upgrade from [16.04 LTS](ubuntu_version) to [16.04.1 LTS](upgrade_to)
+    - Upgrading from [10.04](ubuntu_version) to [11.10](upgrade_to)
+    - How can i upgrade to Ubuntu [14.04](upgrade_to) final from [14.04 Beta](ubuntu_version) correctly?
+    - Is there an upgrade procedure from [12.04 LTS](ubuntu_version) to [14.04 LTS](upgrade_to)
+    - Upgrade from [9.10](ubuntu_version) to [11.04](upgrade_to)
+    - How to upgrade Ubuntu [12.04(ubuntu_version) to [14.04](upgrade_to) if I have [dual-boot](other_details) with windows 7?
+    - using [12.04](ubuntu_version) can I [compile](other_details) packages with gcc for [10.04](upgrade_to)?
+    - Upgrading From [11.04 32bit](ubuntu_version) to [12.04 64bit](upgrade_to)
+    - Is it worth upgrading from [12.04LTS](ubuntu_version) to [13.04](upgrade_to)
+    - Upgrade to [12.04 64bit](upgrade_to)
+    - I want to upgrade to [12.00 64bit](upgrade_to).
+    - I want to move to [14.04.1 LTS](upgrade_to).
+    - I'm interested in upgrading to Ubuntu version [12.04](upgrade_to).
+    - I'm looking to update my current Ubuntu installation to version [12.04](upgrade_to).
+    - I want to upgrade my Ubuntu system to the [12.04 Beta](upgrade_to) version.
+    - Is it possible to update to Ubuntu [12.04 LTS](upgrade_to) from my current version?
+    - I'm considering updating my Ubuntu to version [12.04.01 Lts](upgrade_to), how can I do that?
+
+- regex: ubuntu_version
+  examples: |
+    - anything
+    - (?<=ubuntu_version )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=from )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=using )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=upgrade )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=update )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+
+- regex: upgrade_to
+  examples: |
+    - regular_version
+    - (?<=upgrade_to )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=to Ubuntu )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+    - (?<=to )\b((?:\d{2}\.\d{2}\.\d{1})|(?:\d{1}\.\d{2})|(?:\d{2}\.\d{2}))(?: LTS| Beta| 32bit| 64bit)?\b
+
+- regex: other_info
+  examples: |
+     - no thanks
+     - (?<=type ).*?\bpdf to word\b
+     - (?<=type ).*?\bflash drive\b
+     - (?<=type ).*?\bdrop-down tree view\b
+     - (?<=type ).*?\bmatch score\b
+     - (?<=type ).*?\bdownload\b
+     - (?<=type ).*?\bphotos\b
+     - (?<=type ).*?\bslideshow\b
+     - (?<=type ).*?\brecently used\b
+     - (?<=type ).*?\bdetails\b
+     - (?<=type ).*?\bcommand line\b
+     - (?<=type ).*?\bfrom a pdf\b
+     - (?<=type ).*?\b2011\b
+     
+#    - (?<=from a )(.+)
+#    - (?<=with )(.+)
+#    - (?<=in )(.+)
+#    - (?<=which )(.+)
+
+- regex: functionality
+  examples: |
+      - not sure
+      - (?<=type ).*?\bview\b
+      - (?<=type ).*?\bmap\b
+      - (?<=type ).*?\bread\b
+      - (?<=type ).*?\bconvert\b
+      - (?<=type ).*?\bview\b
+      - (?<=type ).*?\bedit\b
+      - (?<=type ).*?\badjust\b
+      - (?<=type ).*?\banalyze\b
+      - (?<=type ).*?\brecover\b
+      - (?<=type ).*?\btake regular break\b
+      - (?<=type ).*?\bgenerate\b
+      - (?<=type ).*?\bmanage\b
+      - (?<=type ).*?\bwatch\b
+      - (?<=type ).*?\brecognise\b
+      - (?<=type ).*?\bsynchronise\b
+      - (?<=type ).*?\bcreate\b
+      - (?<=type ).*?\bmatch\b
+      - (?<=type ).*?\bdiagnose\b
+      - (?<=type ).*?\bget\b
+      - (?<=type ).*?\bremove\b
+      - (?<=type ).*?\bsee\b
+      - (?<=type ).*?\bextract\b
+      - (?<=type ).*?\bcut\b
+      - (?<=type ).*?\bscreenshot\b
+      - (?<=type ).*?\bcrop\b
+      - (?<=type ).*?\bplay\b
+      - (?<=type ).*?\bmonitor\b
+#        - (?<=operation )(.+)
+
+
+- regex: software_type
+  examples: |
+     - default
+     - (?<=type ).*?\bepub\b
+     - (?<=type ).*?\bpdf\b
+     - (?<=type ).*?\bmind\b
+     - (?<=type ).*?\bqr code\b
+     - (?<=type ).*?\b.dwg\b
+     - (?<=type ).*?\bphp\b
+     - (?<=type ).*?\bscreen\b
+     - (?<=type ).*?\bhex\b
+     - (?<=type ).*?\blan topology\b
+     - (?<=type ).*?\bwifi\b
+     - (?<=type ).*?\bdata\b
+     - (?<=type ).*?\bascii art\b
+     - (?<=type ).*?\bgui binary\b
+     - (?<=type ).*?\bpdf metadata\b
+     - (?<=type ).*?\bfile\b
+     - (?<=type ).*?\btv\b
+     - (?<=type ).*?\bhdr\b
+     - (?<=type ).*?\bmicrosoft word\b
+     - (?<=type ).*?\bwireframing\b
+     - (?<=type ).*?\bface\b
+     - (?<=type ).*?\bipod\b
+     - (?<=type ).*?\bssh connection\b
+     - (?<=type ).*?\bgnome system monitor\b
+     - (?<=type ).*?\bvideo\b
+     - (?<=type ).*?\bproject\b
+     - (?<=type ).*?\bblog\b
+     - (?<=type ).*?\bgui\b
+     - (?<=type ).*?\bfuzzy string\b
+     - (?<=type ).*?\bhardware\b
+     - (?<=type ).*?\bregex\b
+     - (?<=type ).*?\bspace\b
+     - (?<=type ).*?\bitems\b
+     - (?<=type ).*?\blauncher\b
+     - (?<=type ).*?\bcalculator\b
+     - (?<=type ).*?\bimages\b
+     - (?<=type ).*?\baudio\b
+     - (?<=type ).*?\bmysql gui\b
+     - (?<=type ).*?\bdeveloper text\b
+     - (?<=type ).*?\birc clients\b
+     - (?<=type ).*?\bgames\b
+     - (?<=type ).*?\bupnp/dlna\b
+     - (?<=type ).*?\bupnp\b
+     - (?<=type ).*?\bdlna\b
+     - (?<=type ).*?\bscientific plotting\b
+     - (?<=type ).*?\bpassword\b
+     - (?<=type ).*?\bweb server\b
+     - (?<=type ).*?\bmongodb gui client\b
+     - (?<=type ).*?\bmobi\b
+
+- regex: method
+  examples: |
+     - any_way
+     - (?<=method ).*?\bkeyboard\b
+     - (?<=method ).*?\bcommand line\b
+     - (?<=method ).*?\badmin password\b
+     - (?<=method ).*?\bverbosity\b
+     - (?<=method ).*?\bgraphical utility\b
+     - (?<=method ).*?\bterminal\b
+     - (?<=method ).*?\bhotkey\b
+     - (?<=method ).*?\bapp\b
+     - (?<=method ).*?\bconfirmation prompt\b
+     - (?<=method ).*?\bshutdown dialog\b
+     
+#          - (?<=method )(.+)
+#     - keyboard
+#     - command line
+#     - admin password
+#     - verbosity
+#     - graphical utility
+#     - terminal
+#     - hotkey
+#     - app
+#     - shutdown dialog
+#     - method (\w+)
+
+- regex: details
+  examples: |
+     - reject
+     - (?<=method ).*?\bslow\b
+     - (?<=method ).*?\bprocess\b
+     - (?<=method ).*?\bconfirmation prompt\b
+     - (?<=method ).*?\no action\b
+     - (?<=method ).*?\badmin password\b
+     - (?<=method ).*?\bno-one\b
+     - (?<=method ).*?\beveryday\b
+     - (?<=method ).*?\btime\b
+     - (?<=method ).*?\bwithout\b
+     - (?<=method ).*?\blogged on\b
+     - (?<=method ).*?\blogin screen\b
+     - (?<=method ).*?\bxsession\b
+     - (?<=method ).*?\bproblem\b
+#     - (?<=details )(.+)
+
+
+- regex: more_details
+  examples: |
+    - nope
+    - (?<=os_version ).*?\bwireless\b
+    - (?<=os_version ).*?\bwirelessly\b
+    - (?<=os_version ).*?\bnetwork\b
+    - (?<=os_version ).*?\blaser\b
+    - (?<=os_version ).*?\bdriver\b
+
+- regex: verb_details
+  examples: |
+     - (?<=method ).*?\btroubleshoot\b
+     - (?<=method ).*?\bend\b
+     - (?<=method ).*?\bnot require\b
+     - (?<=method ).*?\buse\b
+     - (?<=method ).*?\bopen\b
+     - (?<=method ).*?\bauto\b
+     - (?<=method ).*?\bquestion\b
+     - (?<=method ).*?\benable\b
+
+# - intent: upgrade
+#   examples: |
+#     - How do I upgrade to the release version of [16.04](upgrade_to) 
+#     - if I am running [Beta](ubuntu_version)?
+#     - [Doubts](other_details) regarding the [15.04](upgrade_to) upgrade (is it inevitable and unavoidable?)
+#     - Upgrading from ubuntu [12.04](ubuntu_version) to [13.10](upgrade_to)
+#     - Ubuntu upgrade [failed](other_details)
+#     - How to [partially](other_details) upgrade Ubuntu [11.10](ubuntu_version) from Ubuntu [11.04](upgrade_to)?
+#     - Is it [necessary](other_details) to upgrade to [15.10](upgrade_to) from [14.04](ubuntu_version)?
+#     - How do I update Xubuntu [11.10](ubuntu_version) to Xubuntu [12.04 LTS](upgrade_to)?
+#     - Problems upgrading from [12.04](ubuntu_version) to [14.04](upgrade_to)
+#     - Do I need to [uninstall](other_details) [10.04](ubuntu_version) to upgrade to [12.04](upgrade_to)?
+#     - Upgrading [16.04](ubuntu_version) to [16.04.1](upgrade_to)
+#     - Can I upgrade to [17.10](upgrade_to) directly from [14.04](ubuntu_version)?
+#     - Is it possible to upgrade from [Mint](ubuntu_version) to [Ubuntu](upgrade_to)?
+#     - How to rollback an upgrade from [12.04](ubuntu_version) to [14.04](upgrade_to)?
+#     - How do I upgrade to the release version of [16.04](upgrade_to) if I am running [Beta](ubuntu_version)?
+#     - Upgrading from ubuntu [12.04](ubuntu_version) to [13.10](upgrade_to)
+#     - Problems upgrading Ubuntu [12.10](ubuntu_version) to [13.04](upgrade_to)
+#     - Do I need to [reinstall](other_details) everything to upgrade from [13.10](ubuntu_version) to [14.10](upgrade_to)?
+#     - Upgrading [16.04](ubuntu_version) to [16.04.1](upgrade_to)
+#     - Is any [offline](other_details) upgrade from [13.10](ubuntu_version) to [14.04](upgrade_to) possible?
+#     - Why did the upgrade from [11.10](ubuntu_version) to [12.04](upgrade_to) [ruin](other_details) my system?
+#     - Do I need to [uninstall](other_details) [10.04](ubuntu_version) to upgrade to [12.04](upgrade_to)?
+#     - How to [partially](other_details) upgrade Ubuntu [11.10](ubuntu_version) from Ubuntu [11.04](upgrade_to)?
+#     - Upgrade from [12.04](ubuntu_version) to [12.10](upgrade_to) [without losing files](other_details)?
+#     - Is it [necessary](other_details) to upgrade to [15.10](upgrade_to) from [14.04](ubuntu_version)?
+
+- intent: setup_printer
+  examples: |
+    - os_version Install printer [Lexmark X4690](printer) on [12.04](os_version)
+    - os_version Cannot setup [HP DJ3630](printer) All in one
+    - os_version How do I setup my [Hp C4140](printer) printer [wirelessly](more_details)?
+    - os_version No matter what I do on [15.04](os_version) does not recognize [Hp LaserJet-1020](printer)
+    - os_version How to setup [HP](printer) printer/scanner on ubuntu?
+    - os_version Cannot install printer [driver](more_details) [epson l210](printer)
+    - os_version Installing [Epson XP-424](printer) wireless printer
+    - os_version How do I install [Dell 2150cdn](printer) printer
+    - os_version How To Install [Canon MF8000C](printer) Printer on [15.10](os_version)?
+    - os_version How to install [Canon LBP330](printer) on [Lts 16.04](os_version)
+    - os_version Can you guide me to install [Brother MFC-7860DW](printer) on [18.04](os_version)?
+    - os_version How do I add a [network](printer) printer on [Ubuntu](os_version)?
+    - os_version How do I install a [Samsung SCX-3400](printer) printer on [Linux Mint 19.3](os_version)?
+    - os_version Help me set up a [wireless](more_details) printer on ubuntu [20.04](os_version)
+    - os_version Installing [Canon TS9120](printer) printer on [Ubuntu 21.04](os_version)
+    - os_version How can I configure a [network](printer) printer on [Lubuntu 20.10](os_version)?
+    - os_version Install printer [Lexmark X4690](printer) on [12.04](os_version)
+    - os_version How do I install the [Hp F4280](lexmark) printer?
+    - os_version No matter what I do on [15.04](os_version) does not recognize [Hp LaserJet-1020](printer)
+    - os_version How to add a [network](printer) printer on [15.10](os_version)?
+    - os_version Installing [Epson XP-424](printer) wireless printer
+    - os_version How do I setup my [Hp C4140](printer) printer [wirelessly](more_details)?
+    - os_version Cannot setup [HP DJ3630](printer) All in one
+    - os_version What is the process to install [Dell 2150cdn](printer) printer on [16.04](os_version)?
+    - os_version How To Install [Canon LBP2900B](printer) printer on [14.04 LTS](os_version)? I tried the method for LBP2900 but it didnt work
+    - os_version Install [Canon MP560](printer) on [15.04](os_version)
+    - os_version Cannot install printer [driver](more_details) [epson l210](printer)
+
+- intent: recommend
+  examples: |
+    - type What software can I use to [view](functionality) [epub](software_type) documents?
+    - type Which [pdf](software_type) [Viewer](functionality) would you recommend?
+    - type What [ides](software_type) are available for Ubuntu?
+    - type What's the best [mind](software_type) [mapping](functionality) Software?
+    - type Software to [read](functionality) a [qr code](software_type)?
+    - type What are some good [php](software_type) [editors](functionality)?
+    - type Please recommend a [hex](software_type) [editor](functionality) for shell
+    - type Is there [lan topology](software_type) [mapping](functionality) software available in ubuntu?
+    - type Is there a tool like [wifi](software_type) [analyzer](functionality) for ubuntu?
+    - type Tool for [recovering](functionality) deleted [data](software_type) from a [flash drive](other_info)
+    - type  app that tells me to [take regular breaks](functionality) from working?
+    - type What are some good [ascii art](software_type) [generators](functionality)?
+    - type Which is the best [pdf metadata](software_type) [viewer](functionality) for Ubuntu?
+    - type Is there a linux [file](software_type) [manager](functionality) with [drop-down tree view](other_info)?
+    - type Which application do you recommend for [watching](functionality) [TV](software_type) (DVB)?
+    - type What Is The Best [hdr](software_type) Software?
+    - type What do you use to [edit](functionality) [microsoft word](software_type) documents (docx)?
+    - type What's the best [Wireframing](software_type) tool?
+    - type Is there a [free](other_info) [music notation](software_type) software for [Ubuntu 20.04](os_version)?
+    - type Any suggestions for a good [video editing](software_type) software for [Ubuntu](os_version)?
+    - type Can you recommend a [photo management](software_type) software with [facial recognition](functionality)?
+    - type What software can I use to [view](functionality) [epub](software_type) documents?
+    - type Which [pdf](software_type) [Viewer](functionality) would you recommend?
+    - type Software to [read](functionality) a [qr code](software_type)?
+    - type Is there a software utility to [adjust](functionality) [screen](software_type) gamma/brightness/contrast?
+    - type Please recommend a [hex](software_type) [editor](functionality) for shell
+    - type Is there [lan topology](software_type) [mapping](functionality) software available in ubuntu?
+    - type What are some good [ascii art](software_type) [generators](functionality)?
+    - type What do you use to [edit](functionality) [microsoft word](software_type) documents (docx)?
+    - type What's the best [Wireframing](software_type) tool?
+    - type Is there software that can [view](functionality) [.dwg](software_type) files?
+    - type What are some good [php](software_type) [editors](functionality)?
+    - type Any app that tells me to [take regular breaks](functionality) from working?
+    - type What Is The Best [hdr](software_type) Software?
+    - type What are the top [photo editing](software_type) [tools](functionality) for Ubuntu?
+    - type Is there a [music player](software_type) that can handle [large playlists](functionality)?
+    - type Best software to [compress](functionality) large [video files](software_type)?
+    - type Is there a good [email client](software_type) for Ubuntu?
+    - Is it recommended to upgrade to Lubuntu 15.04?
+    - On really old Ubuntu 6.06 - How to upgrade
+#    - Do I need to uninstall 10.04 to upgrade to 12.04?
+#    - Do you recommend me to update from 10.02
+#    - I'm currently running Ubuntu 18.04. Is it time to upgrade to the latest LTS version?
+#    - Are there any known issues when upgrading from Ubuntu 20.04 to 22.04?
+#    - My system is on Ubuntu 16.04. Should I consider upgrading for better performance and security?
+#    - I heard about the latest Ubuntu release. Is it worth the upgrade, or should I stick with my current version for now?
+
+
+- intent: shutdown
+  examples: |
+    - method [Keyboard](method) shortcut to shutdown?
+    - method How to [troubleshoot](verb_details) [slow](details) shutdown?
+    - method How can I shutdown the computer when a certain [process](details) [ends](verb_details)?
+    - method Ubuntu Shut down [app](method)
+    - method How can I make shutdown [not require](verb_details) [admin password](details)?
+    - method shutdown in specific way if [no-one](details) [uses](verb_details) computer
+    - method What is the proper [terminal](method) -way to shutdown?
+    - method [Hotkey](method) to shut down from [login screen](details)?
+    - method How can I [enable](verb_details) shutdown [verbosity](method)?
+    - method Are there any [Keyboard](method) Shortcuts to Shutdown?
+    - method Shutdown [problem](details) in Ubuntu 16.04
+    - method How do I fix a shutdown [problem](details)?
+    - method How to shutdown computer when users are [logged on](details)?
+    - method How do I schedule an automatic [shutdown](method) on [Ubuntu](os_version)?
+    - method How to [abort](verb_details) a shutdown in progress on [Ubuntu 20.04](os_version)?
+    - method Is there a way to set [custom](details) [shutdown time](method) on ubuntu?
+    - method How to shutdown the system after a specific [time](details)?
+    - method How to add a [delay](details) before shutdown in [Linux](os_version)?
+    - method [Keyboard](method) shortcut to shutdown?
+    - method How can I shutdown the computer when a certain [process](details) [ends](verb_details)?
+    - method What is the command to [open](verb_details) the [shutdown dialog](method)? -----
+    - method shutdown 5:30pm [every day](details)
+    - method [Hotkey](method) to shut down from [login screen](details)?
+    - method How can one shutdown a PC using the [keyboard](method)?
+    - method shutdown in specific way if [no-one](details) [uses](verb_details) computer
+    - method How can I make shutdown [not require](verb_details) [admin password](details)?
+    - method What is the proper [terminal](method) -way to shutdown?
+    - method How to shutdown the computer after [Xsession](details) [ends](verb_details)?
+    - method Are there any [Keyboard](method) Shortcuts to Shutdown?
+    - method How do I fix a shutdown [problem](details)?
+    - method How do I troubleshoot [slow](details) shutdown?
+    - method How to [schedule](verb_details) an automatic shutdown every night?
+    - method How to shut down [without](details) the [confirmation prompt](method)? ---
+    - method What is the [fastest](details) way to shut down Ubuntu?
+    - method How to perform a [forceful](verb_details) shutdown?
+    - method Is there a way to [shutdown](verb_details) the system after a specific [time](details)?
+    - method What are the different ways to [power off](method) the computer?

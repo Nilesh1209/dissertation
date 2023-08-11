@@ -1,0 +1,74 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+# - story: sad path 1
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: mood_unhappy
+#   - action: utter_cheer_up
+#   - action: utter_did_that_help
+#   - intent: affirm
+#   - action: utter_happy
+
+# - story: sad path 2
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: mood_unhappy
+#   - action: utter_cheer_up
+#   - action: utter_did_that_help
+#   - intent: deny
+#   - action: utter_goodbye
+
+# - story: happy path 3
+#   steps:
+#   - intent: greet
+#   - action: action_hello_world
+#   # - intent: mood_great
+#   # - action: utter_happy
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: action_provide_options
+
+- story: setup printer
+  steps:
+  - intent: setup_printer
+  - action: action_setup_printer
+
+- story: upgrade
+  steps:
+  - intent: upgrade
+  - action: action_upgrade
+
+
+- story: recommend
+  steps:
+  - intent: recommend
+  - action: action_recommend
+
+- story: shutdown
+  steps:
+  - intent: shutdown
+  - action: action_shutdown
+
+
+# - story: happy_feedback
+#   steps:
+#   - intent: happy_feedback
+#   - action: action_check_solution_helpful
+
+# - story: sad_feedback
+#   steps:
+#   - intent: sad_feedback
+#   - action: action_collect_user_info

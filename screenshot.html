@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Full Page Screenshot</title>
+</head>
+<body>
+  <button onclick="captureScreenshot()">Take Screenshot</button>
+
+
+  <script>
+    function captureScreenshot() {
+      // Hide the button during screenshot capture
+      var button = document.querySelector('button');
+      button.style.display = 'none';
+
+      // Capture the full page screenshot
+      html2canvas(document.documentElement).then(function(canvas) {
+        // Convert the canvas to an image URL
+        var image = canvas.toDataURL('image/png');
+
+        // Create a link element to download the image
+        var link = document.createElement('a');
+        link.href = image;
+        link.download = 'full_page_screenshot.png';
+        link.click();
+
+        // Show the button again after capturing the screenshot
+        button.style.display = 'block';
+      });
+    }
+
+
+  </script>
+
+  <!-- Include the html2canvas library -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>

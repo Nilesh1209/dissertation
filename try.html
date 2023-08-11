@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+
+
+        #chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        /* Add CSS for the chat container */
+        #chat-container {
+            display: none;
+        }
+
+        #chat-container.show {
+            display: block;
+        }
+
+        /* Rest of your CSS styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 220px; /* Adjust the width as needed */
+            background-color: #f8f8f8;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+            z-index: 2;
+
+        }
+
+        .chat-messages {
+            flex: 1;
+            max-height: calc(100vh - 200px); /* Decreased the height to resemble chat GPT */
+            overflow-y: auto;
+            margin-left: 20px;
+            margin-right: 20px; /* Added margin to match the chat container width */
+            position: relative;
+            margin: 0;
+        }
+
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-right: 10px;
+        }
+
+        .intent-option {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            margin-right: 10px;
+            margin-bottom: 10px; /* Added margin-bottom to create more space */
+            cursor: pointer;
+        }
+
+
+        .intent-option {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            line-height: 1.4;
+            max-width: 90%;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .chat-message.bot {
+            background-color: #d6eef8;
+            color: #212121;
+            align-self: flex-start;
+            margin-left: 0;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .chat-message.user {
+            background-color: #e5e5ea;
+            color: #212121;
+            align-self: flex-end;
+            margin-right: 0;
+            margin-left: auto;
+            max-width: 80%;
+        }
+
+        .chat-message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+
+        #chat-form {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 320px;
+            right: 340px; /* Adjusted the right position to match the width of the sidebar and create the same length as the chat container */
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: transparent;
+            color: #212121;
+            outline: none;
+            max-width: 70%; /* Decreased the width of the input container */
+        }
+
+
+        #chat-form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+            min-width: 80px; /* Decreased the width of the send button */
+        }
+
+        .copy-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .options-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .options-toggle button {
+            padding: 5px 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .options-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .options-container button {
+            margin-bottom: 5px;
+        }
+
+
+        .hide-sidebar-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .open-sidebar-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 25px;
+            cursor: pointer;
+            min-width: 80px;
+            margin-top: 20px; /* Add margin-top to position below the header */
+        }
+
+
+        .sidebar-hidden .hide-sidebar-button {
+        display: none;
+        }
+
+        .sidebar-hidden .open-sidebar-button {
+            display: block;
+        }
+
+
+        .sidebar-transition {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .sidebar-hidden .sidebar {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .sidebar-hidden .open-sidebar-button {
+            display: block;
+        }
+
+        .container {
+        position: relative;
+        }
+
+        .chat-header {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #212121;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <img id="chat-button" src="bot.png" alt="Chatbot" onclick="toggleChat()" />
+
+
+    <div id="chat-container" class="container">
+
+        <div class="sidebar" id="sidebar">
+            <h2>Options</h2>
+            <button type="button" class="intent-option" data-message="Software Recommendation">Software Recommendation</button>
+            <button type="button" class="intent-option" data-message="Shutdown Your PC">Shutdown Your PC</button>
+            <button type="button" class="intent-option" data-message="Software Update">Software Update</button>
+            <button type="button" class="intent-option" data-message="Setup Printer">Setup Printer</button>
+            <button class="hide-sidebar-button" onclick="hideSidebar()">Hide</button>
+        </div>
+        <div class="chat-header">Ask Ubuntu</div>
+        <button class="open-sidebar-button" onclick="openSidebar()">Options</button>
+        <div class="chat-container">
+            <div class="chat-messages">
+                <div class="chat-message bot">
+                    <img class="chat-message-avatar" src="bot.png" alt="Bot Avatar" />
+                    <div>Bot: Hi, I am your chatbot. How can I assist you?</div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-form">
+            <input type="text" id="user-input" placeholder="Write a message..." autocomplete="off" />
+            <button type="submit">Send</button>
+        </div>
+
+        <button class="close-button" onclick="toggleChat()">
+            <span>&times;</span>
+        </button>
+
+    </div>
+
+
+    <script>
+
+        const chatContainer = document.querySelector('.chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const intentOptions = document.querySelectorAll('.intent-option');
+        let waitingForAnswer = false;
+
+        function appendMessage(message, sender, avatar) {
+            const defaultBotAvatar = 'bot.png';
+            const defaultUserAvatar = 'user.png';
+            const botAvatar = avatar || defaultBotAvatar;
+            const userAvatar = avatar || defaultUserAvatar;
+
+            const chatMessage = document.createElement('div');
+            chatMessage.classList.add('chat-message');
+            chatMessage.classList.add(sender);
+            if (sender === 'bot') {
+                if (message.length != 0) {
+                    chatMessage.innerHTML = `
+                        <img class="chat-message-avatar" src="${botAvatar}" alt="${sender} Avatar" />
+                        <div>${message}</div>
+                    `;
+
+
+                if (!waitingForAnswer) {
+                    hideSidebar2();
+                } 
+                
+            } else {
+                chatMessage.innerHTML = `
+                    <img class="chat-message-avatar" src="${userAvatar}" alt="${sender} Avatar" />
+                    <div>${message}</div>
+                `;
+            }
+            chatContainer.appendChild(chatMessage);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+
+        async function sendMessageToRasa(message) {
+            const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                sender: 'user',
+                message: message
+                })
+            });
+
+            const responseData = await response.json();
+
+            if (responseData.length === 0) {
+                if (!waitingForAnswer) {
+                    waitingForAnswer = true;
+                    appendMessage("I'm sorry, I don't have an answer for that. Could you please rephrase or ask a different question?", 'bot');
+                } else {
+                    waitingForAnswer = false;
+                    appendMessage("I'm sorry, we can't process your question right now. Please refresh the page and use the options provided", 'bot');
+                }
+                return;
+            }
+
+
+            responseData.forEach((data) => {
+                const botMessage = data.text;
+                appendMessage(botMessage, 'bot');
+
+            });
+
+
+        }
+
+
+
+        function handleUserInput(event) {
+            event.preventDefault();
+            const message = userInput.value.trim();
+            if (message === '') {
+                return;
+            }
+            userInput.value = '';
+            appendMessage(message, 'user');
+            sendMessageToRasa(message);
+        }
+
+
+        function handleIntentOptionClick(event) {
+            const message = event.target.getAttribute('data-message');
+            appendMessage(message, 'user');
+            sendMessageToRasa(message);
+        }
+
+        chatForm.addEventListener('submit', handleUserInput);
+        intentOptions.forEach(option => {
+            option.addEventListener('click', handleIntentOptionClick);
+        });
+
+        const sendButton = document.querySelector('#chat-form button[type="submit"]');
+        sendButton.addEventListener('click', handleUserInput);
+
+        function openSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openButton = document.getElementsByClassName("open-sidebar-button")[0];
+            sidebar.style.opacity = "1";
+            sidebar.style.visibility = "visible";
+            openButton.style.display = "none";
+            document.body.classList.remove("sidebar-hidden");
+        }
+
+        function hideSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var openButton = document.getElementsByClassName("open-sidebar-button")[0];
+            sidebar.style.opacity = "0";
+            sidebar.style.visibility = "hidden";
+            openButton.style.display = "block";
+            document.body.classList.add("sidebar-hidden");
+        }
+
+        function hideSidebar2() {
+            var sidebar = document.getElementById("sidebar");
+            var openButton = document.getElementsByClassName("open-sidebar-button")[0];
+            sidebar.classList.add("sidebar-transition");
+            setTimeout(function () {
+                sidebar.style.opacity = "0";
+                sidebar.style.visibility = "hidden";
+                openButton.style.display = "block";
+            }, 300);
+            document.body.classList.add("sidebar-hidden");
+        }
+
+        function toggleChat() {
+            var chatButton = document.getElementById('chat-button');
+            var chatContainer = document.getElementById('chat-container');
+
+            if (chatContainer.classList.contains('show')) {
+                // Hide the chat container and show the chat button
+                chatContainer.classList.remove('show');
+                chatButton.style.display = 'block';
+            } else {
+                // Show the chat container and hide the chat button
+                chatContainer.classList.add('show');
+                chatButton.style.display = 'none';
+            }
+        }
+
+    </script>
+</body>
+</html>
